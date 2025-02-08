@@ -6,27 +6,27 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:55:58 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/09 13:16:32 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/31 10:42:27 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
 
-void	image_init(t_render	*info)
+void	image_init(t_tracer	*info)
 {
-	info->vars.mlx = mlx_init();
-	info->vars.win = mlx_new_window(info->vars.mlx, WIDTH, HEIGHT, "MiniRT");
-	info->img.img = mlx_new_image(info->vars.mlx, WIDTH, HEIGHT);
-	info->img.addr = mlx_get_data_addr(info->img.img, &info->img.bits_per_pixel,
-			&info->img.line_length, &info->img.endian);
+	info->data.mlx = mlx_init();
+	info->data.win = mlx_new_window(info->data.mlx, WIDTH, HEIGHT, "MiniRT");
+	info->frame.mlx_img = mlx_new_image(info->data.mlx, WIDTH, HEIGHT);
+	info->frame.pixel_buffer = mlx_get_data_addr(info->frame.mlx_img, &info->frame.color_depth,
+			&info->frame.stride, &info->frame.byte_order);
 }
 
-void	my_mlx_pixel_put(t_img_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_canvas *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->pixel_buffer + (y * data->stride + x * (data->color_depth / 8));
 	*(unsigned int *)dst = color;
 }
 

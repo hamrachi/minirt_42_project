@@ -6,17 +6,17 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:54:58 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/31 12:57:39 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:22:43 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-t_vec compute_lighting(t_scene *scene, t_inter intersection, t_vec ambient_color)
+t_point3d compute_lighting(t_world *scene, t_inter_data intersection, t_point3d ambient_color)
 {
-    t_light     *current_light;
-    t_vec       final_color;
-    t_vec       light_direction;
+    t_light_source     *current_light;
+    t_point3d       final_color;
+    t_point3d       light_direction;
     double      diffuse_factor;
 
     final_color = create_vector(0, 0, 0);
@@ -28,7 +28,7 @@ t_vec compute_lighting(t_scene *scene, t_inter intersection, t_vec ambient_color
         final_color = blend_colors(final_color, ambient_color);
     else
     {
-        light_direction = sub_vec(current_light->src, intersection.hit_point);
+        light_direction = sub_vec(current_light->position, intersection.hit_point);
         diffuse_factor = dot_product(scale_to_one(light_direction), intersection.normal);
         final_color = blend_colors(final_color, ambient_color);
         if (diffuse_factor > 0)
@@ -38,49 +38,49 @@ t_vec compute_lighting(t_scene *scene, t_inter intersection, t_vec ambient_color
 }
 
 
-t_vec  scale_and_combine_colors(t_vec base_color, t_vec light_color, double intensity_ratio)
+t_point3d  scale_and_combine_colors(t_point3d base_color, t_point3d light_color, double intensity_ratio)
 {
-    t_vec result_color;
+    t_point3d result_color;
 
-    result_color.x = base_color.x * (light_color.x / 255) * intensity_ratio;
-    result_color.y = base_color.y * (light_color.y / 255) * intensity_ratio;
-    result_color.z = base_color.z * (light_color.z / 255) * intensity_ratio;
+    result_color.x_coord = base_color.x_coord * (light_color.x_coord / 255) * intensity_ratio;
+    result_color.y_coord = base_color.y_coord * (light_color.y_coord / 255) * intensity_ratio;
+    result_color.z_coord = base_color.z_coord * (light_color.z_coord / 255) * intensity_ratio;
 
     return (result_color);
 }
 
 
-t_vec blend_colors(t_vec color_a, t_vec color_b)
+t_point3d blend_colors(t_point3d color_a, t_point3d color_b)
 {
-    t_vec blended_color;
+    t_point3d blended_color;
 
     blended_color = vec_addition(color_a, color_b);
-    if (blended_color.x > 255)
-        blended_color.x = 255;
-    if (blended_color.y > 255)
-        blended_color.y = 255;
-    if (blended_color.z > 255)
-        blended_color.z = 255;
+    if (blended_color.x_coord > 255)
+        blended_color.x_coord = 255;
+    if (blended_color.y_coord > 255)
+        blended_color.y_coord = 255;
+    if (blended_color.z_coord > 255)
+        blended_color.z_coord = 255;
 
     return (blended_color);
 }
 
-t_vec	ray_color(t_ray *ray, t_scene *sc)
+t_point3d	ray_color(t_ray *ray, t_world *sc)
 {
-	t_inter	inter;
-	t_vec	px_col;
-	t_vec	amb;
+	t_inter_data	inter;
+	t_point3d	px_col;
+	t_point3d	amb;
 
 	inter = find_closest_intersection(ray, sc);
 	if (inter.t > EPSILON)
 	{
-		amb = scale_and_combine_colors(inter.color, sc->amb.col, sc->amb.ratio);
+		amb = scale_and_combine_colors(inter.color, sc->amb_light.light_color, sc->amb_light.intensity);
 		if (ray_is_inside(ray->direction, inter.normal))
 			inter.normal = mult_vec(inter.normal, -1);
 		px_col = compute_lighting(sc, inter, amb);
 		return (px_col);
 	}
-	return (mult_vec(sc->amb.col, sc->amb.ratio));
+	return (mult_vec(sc->amb_light.light_color, sc->amb_light.intensity));
 }
 
 int	create_rgb(int r, int g, int b)

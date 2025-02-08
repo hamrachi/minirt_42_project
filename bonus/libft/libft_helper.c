@@ -6,83 +6,100 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:40:45 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/23 16:50:42 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/01 09:53:10 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-double	take_min(double x, double y)
+double find_min(double first_num, double second_num)
 {
-	if (x > y)
-		return (y);
-	return (x);
+    if (first_num > second_num)
+        return (second_num);
+    return (first_num);
 }
 
-double	ft_atod(const char *str)
+double parse_decimal_part(const char *str, int start_idx, double whole_num, int sign)
 {
-	double	nb;
-	int		signe;
-	int		i;
-	int		aux;
+    int multiplier = 10;
+    int it = start_idx;
+    double result = whole_num;
 
-	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	signe = 1;
-	if (str[i] == '-' || str[i] == '+')
-		if (str[i++] == '-')
-			signe = -1;
-	nb = 0;
-	while (str[i] >= '0' && str[i] <= '9')
-		nb = nb * 10 + (str[i++] - '0');
-	if (str[i] != '.')
-		return ((double)nb * signe);
-	aux = 10;
-	while (str[++i] >= '0' && str[i] <= '9')
-	{
-		nb = nb + (double)(str[i] - '0') / aux;
-		aux = aux * 10;
-	}
-	return ((double)nb * signe);
+    while (str[it] >= '0' && str[it] <= '9')
+    {
+        result = result + (double)(str[it] - '0') / multiplier;
+        multiplier *= 10;
+        it++;
+    }
+    return (result * sign);
 }
 
-int	ft_atoi(const char *str)
+double ft_atod(const char *str)
 {
-	int	i;
-	int	signe;
-	int	nb;
+    double number;
+    int sign;
+    int it;
 
-	i = 0;
-	nb = 0;
-	signe = 1;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			signe = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nb = nb * 10 + (str[i] - '0');
-		i++;
-	}
-	return (nb * signe);
+    it = 0;
+    while (str[it] == ' ' || (str[it] >= 9 && str[it] <= 13))
+        it++;
+    sign = 1;
+    if (str[it] == '-' || str[it] == '+')
+        if (str[it++] == '-')
+            sign = -1;
+    number = 0;
+    while (str[it] >= '0' && str[it] <= '9')
+        number = number * 10 + (str[it++] - '0');
+    if (str[it] != '.')
+        return (number * sign);
+    return (parse_decimal_part(str, it + 1, number, sign));
 }
 
-void	free_split(char **s)
-{
-	int	i;
 
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
+int handle_number_conversion(const char *str, int start_idx, int sign)
+{
+    int result;
+    int it;
+
+    result = 0;
+    it = start_idx;
+    while (str[it] >= '0' && str[it] <= '9')
+    {
+        result = result * 10 + (str[it] - '0');
+        it++;
+    }
+    return (result * sign);
+}
+
+int ft_atoi(const char *str)
+{
+    int it;
+    int sign;
+    
+    it = 0;
+    sign = 1;
+    while (str[it] == 32 || (str[it] >= 9 && str[it] <= 13))
+        it++;
+    if (str[it] == '-' || str[it] == '+')
+    {
+        if (str[it] == '-')
+            sign = -1;
+        it++;
+    }
+    return (handle_number_conversion(str, it, sign));
+}
+
+void	free_split(char **array)
+{
+	 int index;
+
+    index = 0;
+    while (array[index])
+    {
+        free(array[index]);
+        index++;
+    }
+    free(array);
 }
 
 int	ft_strlen(const char *str)

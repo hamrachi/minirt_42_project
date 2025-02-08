@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:58:16 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/23 16:52:08 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:18:39 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_ray_params	calculate_ray_params(t_ray_trace_context *ctx)
 }
 
 // Trace a single sample ray
-t_vec	trace_sample_ray(t_ray_trace_context *ctx)
+t_point3d	trace_sample_ray(t_ray_trace_context *ctx)
 {
 	t_ray_params	params;
 	t_ray		ray;
@@ -45,7 +45,7 @@ t_vec	trace_sample_ray(t_ray_trace_context *ctx)
 // Initialize and prepare context for SSAA
 
 // Initialize the context structure (4 parameters)
-void init_pixel_context(t_ray_trace_context *ctx, t_ssaa_config *config, t_camera *cam, t_scene *scene)
+void init_pixel_context(t_ray_trace_context *ctx, t_ssaa_config *config, t_cam_matrix *cam, t_world *scene)
 {
     ctx->config = config;
     ctx->cam = cam;
@@ -60,7 +60,7 @@ void set_pixel_coords(t_ray_trace_context *ctx, int x, int y)
 }
 
 // Process a single sample of the pixel
-t_vec process_single_sample(t_ray_trace_context *ctx, int sx, int sy)
+t_point3d process_single_sample(t_ray_trace_context *ctx, int sx, int sy)
 {
     ctx->sx = sx;
     ctx->sy = sy;

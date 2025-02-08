@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 00:06:57 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/30 17:12:20 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:23:36 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ void	report_error(char *str)
 
 // Allocate scene
 
-void initialize_scene_fields(t_scene *scene)
+void initialize_scene_fields(t_world *scene)
 {
     scene->objs = NULL;
-    scene->amb.count = 0;
-    scene->cam.count = 0;
+    scene->amb_light.light_count = 0;
+    scene->camera.cam_count = 0;
     scene->light = NULL;
 }
-t_scene *allocate_scene(void)//t+world
+t_world *allocate_scene(void)//t+world
 {
-    t_scene *scene;
+    t_world *scene;
 
     garbage_collector = NULL;
-    scene = gc_malloc(&garbage_collector, sizeof(t_scene));
+    scene = gc_malloc(&garbage_collector, sizeof(t_world));
     if (!scene)
         return (NULL);
     initialize_scene_fields(scene);
@@ -48,19 +48,19 @@ t_scene *allocate_scene(void)//t+world
 
 // Allocate object
 
-void init_object_vec(t_objs *object)
+void init_object_vec(t_scene_element *object)
 {
     reset_vec(&(object->color));
     reset_vec(&(object->center));
     reset_vec(&(object->direction));
-    reset_vec(&(object->p));//
+    reset_vec(&(object->param));
 }
 
-t_objs *allocate_object(t_scene *scene)
+t_scene_element *allocate_object(t_world *scene)
 {
-    t_objs *new_object;
+    t_scene_element *new_object;
 
-    new_object = gc_malloc(&garbage_collector, sizeof(t_objs));
+    new_object = gc_malloc(&garbage_collector, sizeof(t_scene_element));
     if (!new_object)
         return (NULL);
     init_object_vec(new_object);

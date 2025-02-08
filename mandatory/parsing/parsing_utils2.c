@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:21:28 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/17 19:45:21 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:37:50 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void validate_color_input(char **args)
 }
 
 // Helper function to validate the color range
-void validate_color_range(t_vec color)
+void validate_color_range(t_point3d color)
 {
-    if (color.x < 0 || color.y < 0 || color.z < 0 || 
-        color.x > 255 || color.y > 255 || color.z > 255)
+    if (color.x_coord < 0 || color.y_coord < 0 || color.z_coord < 0 || 
+        color.x_coord > 255 || color.y_coord > 255 || color.z_coord > 255)
         report_error("Color values must be in the range [0, 255].");
 }
 
@@ -60,9 +60,9 @@ void validate_cylinder_input(char **args)
 }
 
 // Helper function to validate the cylinder orientation
-void validate_cylinder_orientation(t_vec dir)
+void validate_cylinder_orientation(t_point3d dir)
 {
-    if (dir.x > 1 || dir.y > 1 || dir.z > 1 || \
-			dir.x < -1 || dir.y < -1 || dir.z < -1)
+    if (dir.x_coord > 1 || dir.y_coord > 1 || dir.z_coord > 1 || \
+			dir.x_coord < -1 || dir.y_coord < -1 || dir.z_coord < -1)
         report_error("Cylinder direction components must be between -1 and 1.");
 }

@@ -6,16 +6,16 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 14:59:02 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/01 12:07:01 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:15:34 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-double calc_pl_ray_inter(t_ray *ray, t_objs *plane)
+double calc_pl_ray_inter(t_ray *ray, t_scene_element *plane)
 {
-    t_vec ray_to_plane;
-    t_vec plane_norm;
+    t_point3d ray_to_plane;
+    t_point3d plane_norm;
     double hit_dist;
     double denom;
     double num;
@@ -49,10 +49,10 @@ double calc_pl_ray_inter(t_ray *ray, t_objs *plane)
     return (-1.0);
 }
 
-t_inter calc_plan_normal(t_inter closest_hit, t_objs *plane, t_ray *ray)
+t_inter_data calc_plan_normal(t_inter_data closest_hit, t_scene_element *plane, t_ray *ray)
 {
-    t_inter current_hit;
-    t_inter new_hit;
+    t_inter_data current_hit;
+    t_inter_data new_hit;
     // Calculate the intersection of the ray with the plane
     current_hit.t = calc_pl_ray_inter(ray, plane);
 
