@@ -1,0 +1,22 @@
+# Ambient light
+A 0.3 255,255,255
+
+# Camera positioned to view the scene
+C 0,0,-20 0,0,1 70
+
+# Light source to illuminate the scene
+l 10,10,-10 1.0 255,255,255
+
+# Plane as the ground
+pl 0,-2,0 0,-1,0 0,0,0 checker 0.6 255,255,255
+
+# Cone positioned and oriented upwards
+co 0,0,0 0,1,0 14 21 10 10,0,255
+
+# Sphere for comparison
+sp 5,7,-5 5 0,255,0 texture textures/world.xpm 1.5 0.9 ff
+sp 5,2,0 5 0,255,0 texture textures/Moon.xpm 1.9 1.5
+
+# Cylinder for comparison
+cy -5,-2,0 0,1,0 2 5 0,0,255
+

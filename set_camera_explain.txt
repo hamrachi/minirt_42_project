@@ -1,0 +1,74 @@
+3D Camera Vector Generation Explained
+======================================
+
+Initial Camera Configuration
+----------------------------
+Camera Position: (0, -1.5, -35)
+Camera Direction: (0, 0, 1.0)
+Field of View: 80 degrees
+
+    Y (World Up)
+    |
+    |
+    |   Camera
+    |   Forward ↗
+    +-----X
+   /
+  /
+ Z
+
+Step 1: Forward Vector Initialization
+-------------------------------------
+        Z
+        ↑ Forward Vector (0,0,1)
+        |
+        |
+        +-----X
+       /
+      Y
+
+Step 2: Reference Axis Creation
+-------------------------------
+Reference Axis: (0, 1, 0)
+        Y
+       /
+      /  Reference Axis
+     /
+    X-----Z
+
+Step 3: Up Vector Calculation
+-----------------------------
+Cross Product: forward × reference_axis
+        
+        Up Vector
+         ↗
+        /
+Forward ↑   Reference Axis
+        |  /
+        | /
+        +-----X
+
+Step 4: Right Vector Calculation
+--------------------------------
+Cross Product: forward × up_vector
+
+        Y (Up)
+        |
+        |
+Forward →-----Right Vector
+        |
+        Z
+
+Final Camera Coordinate System
+------------------------------
+    Y (Up)
+    |
+    |
+Forward →-----Right
+    |
+    Z
+
+Key Vectors:
+- Forward: Camera's looking direction
+- Up: Vertical orientation
+- Right: Horizontal orientation
