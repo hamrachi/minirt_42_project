@@ -6,17 +6,17 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 21:49:29 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/23 18:24:39 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:22:07 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-t_light	*alloc_light(t_scene *sc)
+t_light_source	*alloc_light(t_world *sc)
 {
-	t_light	*new_light;
+	t_light_source	*new_light;
 
-	new_light = malloc(sizeof(t_light));
+	new_light = malloc(sizeof(t_light_source));
 	if (!new_light)
         report_error("allocation failed\n");
 	new_light->next = sc->light;
@@ -24,9 +24,9 @@ t_light	*alloc_light(t_scene *sc)
 	return (new_light);
 }
 
-void parse_light(t_scene *scene, char **args)
+void parse_light(t_world *scene, char **args)
 {
-    t_light *new;
+    t_light_source *new;
 
     // Check if a light already exists in the scene
     if (scene->light != NULL)
@@ -40,67 +40,48 @@ void parse_light(t_scene *scene, char **args)
     new = alloc_light(scene);
 
     // Set the light source vector and validate the ratio
-    new->src = get_vec(args[1]);
-    new->ratio = ft_atod(args[2]);
-    validate_light_ratio(new->ratio);
+    new->position = get_vec(args[1]);
+    new->brightness = ft_atod(args[2]);
+    validate_light_ratio(new->brightness);
 
     // Set the color of the light
-    new->col = get_color(args[3]);
+    new->light_color = get_color(args[3]);
 }
 
-
-// void parse_light(t_scene *scene, char **args)//new
-// {
-//     t_light *new;
-
-//     // Validate light input (args and count)
-//     // validate_light_input(args);
-//     validate_light_input(args, scene);
-//     // Allocate memory for the new light object
-//     new = alloc_light(scene);
-//     // Set the light source vector and validate the ratio
-//     new->src = get_vec(args[1]);
-//     new->ratio = ft_atod(args[2]);
-//     // Validate light brightness ratio
-//     validate_light_ratio(new->ratio);
-//     // Set the color of the light
-//     new->col = get_color(args[3]);
-// }
-
-void parse_camera(t_scene *scene, char **args)//new__
+void parse_camera(t_world *scene, char **args)//new__
 {
     // Validate camera input (args and count)
     validate_camera_input(args, scene);
     // Increment camera count
-    scene->cam.count++;
+    scene->camera.cam_count++;
     // Set camera center and direction vectors
-    scene->cam.cen = get_vec(args[1]);
-    scene->cam.dir = get_vec(args[2]);
+    scene->camera.origin = get_vec(args[1]);
+    scene->camera.orientation = get_vec(args[2]);
     // Validate camera orientation
-    validate_camera_orientation(scene->cam.dir);
+    validate_camera_orientation(scene->camera.orientation);
     // Set and validate the camera FOV
-    scene->cam.fov = ft_atod(args[3]);
-    validate_camera_fov(scene->cam.fov);
+    scene->camera.f_o_v = ft_atod(args[3]);
+    validate_camera_fov(scene->camera.f_o_v);
 }
 
 // Main function to parse ambient lighting
-void parse_ambient(t_scene *scene, char **args)//new
+void parse_ambient(t_world *scene, char **args)//new
 {
     // Validate ambient parameters (tokens and count)
     validate_ambient_input(args, scene);
     // Increment ambient count
-    scene->amb.count++;
+    scene->amb_light.light_count++;
     // Set ambient lighting ratio
-    scene->amb.ratio = ft_atod(args[1]);
+    scene->amb_light.intensity = ft_atod(args[1]);
     // Validate the ambient lighting ratio
-    validate_ambient_ratio_range(scene->amb.ratio);
+    validate_ambient_ratio_range(scene->amb_light.intensity);
     // Set the color for ambient lighting
-    scene->amb.col = get_color(args[2]);
+    scene->amb_light.light_color = get_color(args[2]);
 }
 
-void parse_cylinder(t_scene *scene, char **args)//new
+void parse_cylinder(t_world *scene, char **args)//new
 {
-    t_objs *obj;
+    t_scene_element *obj;
 
     // Validate cylinder input (args and count)
     validate_cylinder_input(args);
@@ -113,17 +94,17 @@ void parse_cylinder(t_scene *scene, char **args)//new
     // Validate cylinder orientation
     validate_cylinder_orientation(obj->direction);
     // Set cylinder diameter and height
-    obj->p.x = ft_atod(args[3]);
-    obj->p.y = ft_atod(args[4]);
+    obj->param.x_coord = ft_atod(args[3]);
+    obj->param.y_coord = ft_atod(args[4]);
     // Validate cylinder diameter and height
-    validate_cylinder_diameter(obj->p.x, obj->p.y);
+    validate_cylinder_diameter(obj->param.x_coord, obj->param.y_coord);
     // Set the cylinder color
     obj->color = get_color(args[5]);
 }
 
-void parse_sphere(t_scene *scene, char **args)//new
+void parse_sphere(t_world *scene, char **args)//new
 {
-    t_objs *obj;
+    t_scene_element *obj;
 
     // Validate sphere input (args and count)
     validate_sphere_input(args);
@@ -132,9 +113,9 @@ void parse_sphere(t_scene *scene, char **args)//new
     obj->type = SPHERE;
     // Set sphere center and validate the diameter
     obj->center = get_vec(args[1]);
-    obj->p.x = ft_atod(args[2]);
+    obj->param.x_coord = ft_atod(args[2]);
     // Validate the sphere diameter
-    validate_sphere_diameter(obj->p.x);
+    validate_sphere_diameter(obj->param.x_coord);
 
     // Set the sphere color
     obj->color = get_color(args[3]);

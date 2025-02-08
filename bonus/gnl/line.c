@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:31:26 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/09 12:10:09 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:06:17 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,42 +89,5 @@ char *line(int fd)
     return (line);
 }
 
-// char *line(int fd)
-// {
-//     char c;                    // Temporary storage for the character read.
-//     static char *line;  // Static to preserve the line between function calls.
-
-//     line = NULL;
-//     // Free the previous line if it exists.
-//     if (line)
-//     {
-//         free(line);
-//         line = NULL;
-//     }
-//     // Read characters one by one from the file descriptor.
-//     while (read(fd, &c, 1))
-//     {
-//         // Skip over newline characters if `line` is still NULL.
-//         if (c == '\n' && line == NULL)
-//             continue;
-//         // Stop reading upon encountering a newline (excluding the first one).
-//         if (c == '\n')
-//         {
-//             if (line && line[0] == '#')
-//             {
-//                 free(line);
-//                 line = NULL;
-//                 continue;
-//             }
-//             break;
-//         }
-//         // Append the character to the line.
-//         line = append_char_to_string(line, c);
-//         if (!line) // Handle memory allocation failure.
-//             return (NULL);
-//     }
-//     // Return the constructed line (or NULL if nothing was read).
-//     return (line);
-// }
 
 

@@ -6,73 +6,72 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:43:19 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/04 18:57:13 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/01 10:53:35 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-t_camera	initialize_camera_params(t_scene *sc)
+t_cam_matrix	initialize_camera_params(t_world *sc)
 {
-	t_camera	cam;
+	t_cam_matrix	cam;
 
-	cam.orig = sc->cam.cen;
-	cam.aspect_r = (double)WIDTH / (double)HEIGHT;
-	cam.theta = sc->cam.fov * M_PI / 180.0;
-	cam.width = tan(cam.theta / 2);
-	cam.height = cam.aspect_r * cam.width;
-	cam.forward = sc->cam.dir;
-	cam.forward.x += EPSILON;
+	cam.pos = sc->camera.origin;
+	cam.ratio = (double)WIDTH / (double)HEIGHT;
+	cam.angle = sc->camera.f_o_v * M_PI / 180.0;
+	cam.w = tan(cam.angle / 2);
+	cam.h = cam.ratio * cam.w;
+	cam.fwd_vec = sc->camera.orientation;
+	cam.fwd_vec.x_coord += EPSILON;
 	return (cam);
 }
 
-t_camera	set_camera(t_scene *sc)
+t_cam_matrix	set_camera(t_world *sc)
 {
-	t_camera	cam;
-	t_vec		ref_world_up;
+	t_cam_matrix	cam;
+	t_point3d		ref_world_up;
 
 	// Initialize the camera parameters
 	cam = initialize_camera_params(sc);
 	// Set ref_axis and calculate up and right vectors
-
 	ref_world_up = create_vector(0.0, -1.0, 0.0);
-	cam.up = scale_to_one(cross_product(cam.forward, ref_world_up));
-	cam.right = scale_to_one(cross_product(cam.forward, cam.up));
+	cam.up_vec = scale_to_one(cross_product(cam.fwd_vec, ref_world_up));
+	cam.right_vec = scale_to_one(cross_product(cam.fwd_vec, cam.up_vec));
 	return (cam);
 }
 
-t_ray	ray_primary(t_camera *cam, double v, double u)
+t_ray	ray_primary(t_cam_matrix *cam, double v, double u)
 {
-	t_ray	ray;
-	t_vec	vertical_offset;
-	t_vec horizontal_offset;
-	t_vec combine_offset;
+	t_ray		ray;
+	t_point3d	vertical_offset;
+	t_point3d 	horizontal_offset;
+	t_point3d 	combine_offset;
 
-	ray.origin = cam->orig;
-	vertical_offset = mult_vec(cam->up, v * cam->height);
-	horizontal_offset = mult_vec(cam->right, u * cam->width);
+	ray.origin = cam->pos;
+	vertical_offset = mult_vec(cam->up_vec, v * cam->h);
+	horizontal_offset = mult_vec(cam->right_vec, u * cam->w);
 	combine_offset = vec_addition(vertical_offset, horizontal_offset);
-	ray.direction = vec_addition(combine_offset, cam->forward);
+	ray.direction = vec_addition(combine_offset, cam->fwd_vec);
 	ray.direction = scale_to_one(ray.direction);
 	return (ray);
 }
 
-t_vec	colorize(double r, double g, double b)
+t_point3d	colorize(double r, double g, double b)
 {
-	t_vec	color;
+	t_point3d	color;
 
-	color.x = r;
-	color.y = g;
-	color.z = b;
+	color.x_coord = r;
+	color.y_coord = g;
+	color.z_coord = b;
 	return (color);
 }
 
-t_vec	ray_at(t_ray *ray, double t)
+t_point3d	ray_at(t_ray *ray, double t)
 {
-	t_vec	target;
+	t_point3d	target;
 
-	target.x = ray->origin.x + t * ray->direction.x;
-	target.y = ray->origin.y + t * ray->direction.y;
-	target.z = ray->origin.z + t * ray->direction.z;
+	target.x_coord = ray->origin.x_coord + t * ray->direction.x_coord;
+	target.y_coord = ray->origin.y_coord + t * ray->direction.y_coord;
+	target.z_coord = ray->origin.z_coord + t * ray->direction.z_coord;
 	return (target);
 }

@@ -6,41 +6,41 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:34:23 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/17 19:46:26 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:39:21 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-t_vec	sub_vec(t_vec u, t_vec v)
+t_point3d	sub_vec(t_point3d u, t_point3d v)
 {
-	t_vec	w;
+	t_point3d	w;
 
-	w.x = u.x - v.x;
-	w.y = u.y - v.y;
-	w.z = u.z - v.z;
+	w.x_coord = u.x_coord - v.x_coord;
+	w.y_coord = u.y_coord - v.y_coord;
+	w.z_coord = u.z_coord - v.z_coord;
 	return (w);
 }
 
-double	magnitude(t_vec	v)
+double	magnitude(t_point3d	v)
 {
-	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
+	return (sqrt(pow(v.x_coord, 2) + pow(v.y_coord, 2) + pow(v.z_coord, 2)));
 }
 
-t_vec	div_vect(t_vec v, double a)
+t_point3d	div_vect(t_point3d v, double a)
 {
-	v.x /= a;
-	v.x /= a;
-	v.z /= a;
+	v.x_coord /= a;
+	v.y_coord /= a;
+	v.z_coord /= a;
 	return (v);
 }
 
-t_vec	create_vector(double x, double y, double z)
+t_point3d	create_vector(double x, double y, double z)
 {
-	t_vec	vec;
+	t_point3d	vec;
 
-	vec.x = x;
-	vec.y = y;
-	vec.z = z;
+	vec.x_coord = x;
+	vec.y_coord = y;
+	vec.z_coord = z;
 	return (vec);
 }

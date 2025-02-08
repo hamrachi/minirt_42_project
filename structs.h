@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/09 14:52:40 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/01 11:40:39 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,39 @@
 
 /* img info struct */
 
-
-typedef struct s_vec
+typedef struct s_point3d
 {
-	double	x;
-	double	y;
-	double	z;
-}	t_vec;
+	double	x_coord;
+	double	y_coord;
+	double	z_coord;
+}	t_point3d;
 
-typedef struct s_data
+typedef struct s_canvas
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int     width;
-    int     height;
-}	t_img_data;
+    void    *mlx_img;           // More descriptive name than 'img'
+    char    *pixel_buffer;      // More descriptive than 'addr'
+    int     color_depth;        // Instead of bits_per_pixel
+    int     stride;             // Instead of line_length (common graphics term)
+    int     byte_order;         // Instead of endian (more descriptive)
+    int     resolution[2];      // Combines width and height into an array
+}   t_canvas;
 
-// Add this to your header file
-typedef struct s_texture
-{
-    int has_checkerboard;
-    double checker_size;
-    t_vec color2;  // Second color for checkerboard
 
-	// Add image texture support
-    int         has_image;
-    t_img_data     *image;
-    double      scale_u;    // Texture scaling in U direction
-    double      scale_v;    // Texture scaling in V direction
-} t_texture;
+// // Add this to your header file
+// typedef struct s_texture
+// {
+//     int has_checkerboard;
+//     double checker_size;
+//     t_point3d color2;  // Second color for checkerboard
 
-typedef struct s_vars
+// 	// Add image texture support
+//     int         has_image;
+//     t_canvas    *image;
+//     double      scale_u;    // Texture scaling in U direction
+//     double      scale_v;    // Texture scaling in V direction
+// } t_texture;
+
+typedef struct s_vars //need tototototototototo
 {
 	void	*mlx;
 	void	*win;
@@ -56,259 +55,143 @@ typedef struct s_vars
 
 
 
-typedef struct s_objs
+typedef struct s_scene_element 
 {
-	int				type;       // Object type
-	t_vec			center;     // Cylinder center
-	t_vec			direction;  // Cylinder direction vector
-	t_vec			parameters; // Parameters: x=radius, y=height
-	t_vec			color;      // Color of the object
-	t_vec			normal;     // Normal vector at intersection
-	t_vec			p;
+	int					type;       // Object type
+	// t_texture 			texture;
+	t_point3d			center;     // Cylinder center
+	t_point3d			direction;  // Cylinder direction vector
+	t_point3d			color;      // Color of the object
+	t_point3d			param; // Parameters: x=radius, y=height
+	t_point3d			normal;     // Normal vector at intersection
+	struct s_scene_element	*next;      // Pointer to the next object
+}	t_scene_element;
 
-	t_texture texture;
-	struct s_objs	*next;      // Pointer to the next object
-}	t_objs;
-
-typedef struct s_inter
+typedef struct s_inter_data
 {
-	double	t;
-	t_vec	color;
-	t_vec	hit_point;
-	t_vec	normal;
+	double		t;
+	t_point3d	color;
+	t_point3d	hit_point;
+	t_point3d	normal;
 
 	int         obj_type;
-	int has_checkerboard;
-	t_texture   texture;
-}	t_inter;
+	int 			has_checkerboard;
+	// t_texture   texture;
+}	t_inter_data;
 
-typedef struct t_cam
+typedef struct s_viewport
 {
-	t_vec	cen;
-	t_vec	dir;
-	double	fov;
-	int		count;
-}	t_cam;
+	t_point3d	origin;
+	t_point3d	orientation;
+	double	f_o_v;
+	int		cam_count;
+}	t_viewport;
 
-typedef struct s_light
+typedef struct s_light_source
 {
-	t_vec			src;
-	double			ratio;
-	t_vec			col;
-	struct s_light	*next;
-}	t_light;
+    t_point3d            position;       // Instead of 'src' - light position
+    double              brightness;      // Instead of 'ratio' - more intuitive
+    t_point3d            light_color;    // Instead of 'col' - more descriptive
+    struct s_light_source   *next;       // Keep linked list functionality
+}   t_light_source;
 
-typedef struct s_amb
+
+typedef struct s_a_light
 {
-	t_vec	col;
-	double	ratio;
-	int		count;
-}	t_amb;
+	t_point3d   light_color;    // Instead of 'col' - more descriptive
+    double      intensity;      // Instead of 'ratio' - common lighting term
+    int         light_count;    // Instead of 'count' - clearer purpose
+}	t_a_light;
 
 
 
-
-// typedef struct s_objs
-// {
-// 	int				type;
-// 	t_vec			cen;
-// 	t_vec			dir;
-// 	t_vec			p;
-// 	t_vec			col;
-// 	t_vec			norm;
-// 	struct s_objs	*next;
-// }	t_objs;
-
-typedef struct s_scene
+typedef struct s_world
 {
-	t_vec	col;
-	t_cam	cam;
-	t_light	*light;
-	t_amb	amb;
-	t_objs	*objs;
+	t_point3d	color;
+	t_viewport	camera;
+	t_light_source	*light;
+	t_a_light	amb_light;
+	t_scene_element	*objs;
 
 	int light_count; // Tracks the number of spotlights in the scene
 
 	void *mlx;
-}	t_scene;
+}	t_world;
 
-typedef struct collector
+//=-=-=-=-=-
+//garbedge collector
+
+typedef struct s_heap_track
 {
-	void				*adr;
-	struct collector	*next;
-}	t_collector;
+    void               	*addr;    // Memory address
+    struct s_heap_track	*next;   // Next tracked address
+}   t_heap_track;
+
 
 /* camera */
-typedef struct Camera_Setup
+
+typedef struct s_cam_matrix
 {
-	t_vec		orig;
-	t_vec		up;
-	t_vec		right;
-	t_vec		forward;
-	double		height;
-	double		width;
-	double		aspect_r;
-	double		theta;
-}	t_camera;
+    t_point3d    pos;        // Instead of 'orig'
+    t_point3d    up_vec;     // Instead of 'up'
+    t_point3d    right_vec;  // Instead of 'right'
+    t_point3d    fwd_vec;    // Instead of 'forward'
+    double      h;          // Instead of 'height'
+    double      w;          // Instead of 'width'
+    double      ratio;      // Instead of 'aspect_r'
+    double      angle;      // Instead of 'theta'
+}   t_cam_matrix;
 
 typedef struct ray
 {
-	t_vec	origin;
-	t_vec	direction;
+	t_point3d	origin;
+	t_point3d	direction;
 }	t_ray;
 
 /* rendring */
-typedef struct render
+
+typedef struct s_tracer
 {
-	t_vars		vars;
-	t_img_data	img;
-	double		v;
-	double		u;
-	int			x;
-	int			y;
-	t_camera	cam;
-	t_ray	ray_;
-	t_vec		ray_col;
-}	t_render;
+    t_vars          data;       // "vars" Core variables
+    t_canvas        frame;      // "img"Frame buffer
+    double          vpos;       // "v" Vertical position
+    double          hpos;       // "u" Horizontal position
+    int             col;        // "x" Column index
+    int             row;        // "y" Row index
+    t_cam_matrix    camera;        // Camera setup
+    t_ray           path;       // "Ray" path
+    t_point3d       rgb;        // "ray_color" Pixel color
+}   t_tracer;
 
 // Intersection 
 
-typedef struct sphere
+
+typedef struct s_sph_calc
 {
-	double	a;
-	double	b;
-	double	c;
-	double	discri;
-	double	t1;
-	double	t2;
-	t_vec	oc;
-}	t_sphere;
+    double      quad_a;     // Instead of 'a' - quadratic a term
+    double      quad_b;     // Instead of 'b' - quadratic b term
+    double      quad_c;     // Instead of 'c' - quadratic c term
+    double      delta;      // Instead of 'discri' (discriminant)
+    double      hit1;       // Instead of 't1' - first intersection
+    double      hit2;       // Instead of 't2' - second intersection
+    t_point3d   rel_pos;    // Instead of 'oc' (origin to center vector)
+}   t_sph_calc;
 
-//=-=-=-=
 
-typedef struct cylinder
+typedef struct s_cyl_calc
 {
-	double	quad_a;      // Quadratic equation coefficient a
-	double	quad_b;      // Quadratic equation coefficient b
-	double	quad_c;      // Quadratic equation coefficient c
-	double	chosen_t;       // Selected t (intersection distance)
-	double	t1;  // First t value from quadratic equation
-	double	t2;  // Second t value from quadratic equation
-	double	discri;      // Discriminant of the quadratic equation
-	double	height_t2;      // Height at t2 along cylinder axis
-	double	height_t1;      // Height at t1 along cylinder axis
-	t_vec	ray_to_center;   // Vector from ray origin to cylinder center
-	t_vec	axis;     // Normalized cylinder axis vector
-}	t_cylinder;
-
-typedef struct cone
-{
-    double a;                   // Quadratic coefficient for t^2
-    double b;                   // Quadratic coefficient for t
-    double c;                   // Quadratic constant term
-    double discriminant;        // Discriminant of the quadratic equation
-    double t_closest;           // Closest valid intersection (t)
-    double t_near;              // Near intersection point (t1)
-    double t_far;               // Far intersection point (t2)
-    double y_far;               // y-coordinate of the far intersection point
-    double y_near;              // y-coordinate of the near intersection point
-    t_vec origin_to_cone;       // Vector from ray origin to cone center
-    t_vec axis;                 // Normalized direction of the cone's axis
-    double slope;               // Slope of the cone (tan(angle/2))
-
-
-	
-	t_vec center;
-	t_vec direction;
-} t_cone_info;
-
-// typedef struct ray_tracing
-// {
-//     t_vec origin;
-//     t_vec direction;
-// } t_raytracing;
-
-//==-=-=-
-
-// typedef struct cylinder
-// {
-// 	double	a;
-// 	double	b;
-// 	double	c;
-// 	double	t;
-// 	double	t1;
-// 	double	t2;
-// 	double	delta;
-// 	double	y0;
-// 	double	y1;
-// 	t_vec	oc;
-// 	t_vec	normal;
-// }	t_cylinder;
-
-// typedef struct cone//BONUS
-// {
-// 	double	a;
-// 	double	b;
-// 	double	c;
-// 	double	delta;
-// 	double	t;
-// 	double	t1;
-// 	double	t2;
-// 	double	y0;
-// 	double	y1;
-// 	t_vec	x;
-// 	t_vec	v;
-// 	double	k;
-// }	t_cone_info;
-
-//=-=-=-=-=-
-
-typedef struct s_thread_info
-{
-    int thread_id;
-    int rows_per_thread;
-    t_scene *scene;
-    t_render *render_info;
-} t_thread_info;
-
-typedef struct s_thread_data 
-{
-    int thread_id;      // ID of the thread
-    int start_row;      // Starting row for this thread
-    int end_row;        // Ending row for this thread
-    t_scene *scene;     // Pointer to the scene
-    t_render *info;     // Pointer to the rendering information
-
-    pthread_mutex_t render_mutex;
-	
-} t_thread_data;
-
-typedef struct s_ssaa_config 
-{
-	int		samples_per_side;
-	double	subpixel_step;
-	double	inv_total_samples;
-	int		total_samples;
-}	t_ssaa_config;
-
-typedef struct s_ray_trace_context
-{
-	int				x;
-	int				y;
-	int				sx;
-	int				sy;
-	t_ssaa_config	*config;
-	t_camera		*cam;
-	t_scene			*scene;
-}	t_ray_trace_context;
-
-typedef struct s_ray_params
-{
-	double	u;
-	double	v;
-	double	offset_u;
-	double	offset_v;
-}	t_ray_params;
+    double      quad_a;        // First coefficient
+    double      quad_b;        // Second coefficient
+    double      quad_c;        // Third coefficient
+    double      sel_t;         // Selected intersection
+    double      hit1;          // First intersection
+    double      hit2;          // Second intersection
+    double      delta;         // Discriminant
+    double      h2;            // Height at hit2
+    double      h1;            // Height at hit1
+    t_point3d   ray_to_center;       // Relative position vector
+    t_point3d   norm_axis;     // Normalized direction
+}   t_cyl_calc;
 
 typedef struct s_ndc
 {

@@ -33,8 +33,8 @@ DEPS_B = main_bonus.c \
 		$(SRC_B_DIR)/objects_intersections/cylinder.c $(SRC_B_DIR)/camera/camera.c $(SRC_B_DIR)/raytracing/threads.c \
 		$(SRC_B_DIR)/raytracing/ft_render.c $(SRC_B_DIR)/raytracing/supersimpler.c $(SRC_B_DIR)/raytracing/supersimpler1.c \
 		$(SRC_B_DIR)/shadow/shadow.c $(SRC_B_DIR)/libft/libft_helper.c $(SRC_B_DIR)/libft/libft_helper1.c $(SRC_B_DIR)/libft/libft_helper2.c \
-		$(SRC_B_DIR)/garbedge_collector/allocation.c $(SRC_B_DIR)/garbedge_collector/garbedge.c $(SRC_B_DIR)/gnl/line.c $(SRC_B_DIR)/objects_intersections/con.c \
-		$(SRC_B_DIR)/colors/checker_board.c $(SRC_B_DIR)/colors/specular.c $(SRC_B_DIR)/colors/textures.c \
+		$(SRC_B_DIR)/garbedge_collector/allocation.c $(SRC_B_DIR)/garbedge_collector/garbedge.c $(SRC_B_DIR)/gnl/line.c \
+		$(SRC_B_DIR)/colors/checker_board.c $(SRC_B_DIR)/colors/specular.c \
 		
 HEADERS = miniRT.h
 
