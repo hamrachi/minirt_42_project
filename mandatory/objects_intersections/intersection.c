@@ -6,16 +6,16 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:39:46 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/30 17:13:20 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:13:07 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-t_inter	find_closest_intersection(t_ray *ray, t_scene *scene)//without else
+t_inter_data	find_closest_intersection(t_ray *ray, t_world *scene)//without else
 {
-	t_inter	closest_inter; // Holds the closest intersection details
-	t_objs	*current_obj;      // Pointer to traverse the objects in the scene
+	t_inter_data	closest_inter; // Holds the closest intersection details
+	t_scene_element	*current_obj;      // Pointer to traverse the objects in the scene
 
 	closest_inter.t = -1.0; // Initialize to no intersection
 	current_obj = scene->objs; // Start with the first object in the scene

@@ -6,101 +6,108 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 22:03:52 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/23 16:50:47 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/01 09:52:23 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-static int	ft_strlcpy(char *dst, const char *src, int dstsize)
+static int	ft_strlcpy(char *dest, const char *source, int max_size)
 {
-	int	i;
-	int	len;
+	int index;
+    int source_len;
 
-	i = 0;
-	len = ft_strlen((char *)src);
-	if (!src)
-		return (0);
-	if (dstsize == 0)
-		return (len);
-	while (src[i] && i < (dstsize - 1))
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (len);
+    index = 0;
+    source_len = ft_strlen((char *)source);
+    if (!source)
+        return (0);
+    if (max_size == 0)
+        return (source_len);
+    while (source[index] && index < (max_size - 1))
+    {
+        dest[index] = source[index];
+        index++;
+    }
+    dest[index] = '\0';
+    return (source_len);
 }
 
-static int	count_words(const char *str, char sp)
+static int	count_words(const char *input_text, char delimiter)
 {
-	int	count;
+	int word_count;
 
-	count = 0;
-	while (*str)
-	{
-		while (*str && *str != sp)
-			str++;
-		while (sp && *str && *str == sp)
-			str++;
-		count++;
-	}
-	return (count);
+    word_count = 0;
+    while (*input_text)
+    {
+        while (*input_text && *input_text != delimiter)
+            input_text++;
+        while (delimiter && *input_text && *input_text == delimiter)
+            input_text++;
+        word_count++;
+    }
+    return (word_count);
 }
 
-static char	*malloc_word(const char *str, char sp)
+static char	*allocate_word(const char *input_text, char delimiter)
 {
-	char	*word;
-	int		count;
+	char *word_buffer;
+    int char_count;
 
-	count = 0;
-	while (str[count] && str[count] != sp)
-		count++;
-	word = (char *)malloc(sizeof(char) * (count + 1));
-	if (word == 0)
-		return (0);
-	ft_strlcpy(word, str, count + 1);
-	return (word);
+    char_count = 0;
+    while (input_text[char_count] && input_text[char_count] != delimiter)
+        char_count++;
+    word_buffer = (char *)malloc(sizeof(char) * (char_count + 1));
+    if (word_buffer == 0)
+        return (0);
+    ft_strlcpy(word_buffer, input_text, char_count + 1);
+    return (word_buffer);
 }
 
-static char	**ft_free(char **buf)
+char **free_on_error(char **array)
 {
-	int	i;
+    int index;
 
-	i = 0;
-	while (buf[i])
-	{
-		free(buf[i]);
-		i++;
-	}
-	free(buf);
-	return (0);
+    index = 0;
+    while (array[index])
+    {
+        free(array[index]);
+        index++;
+    }
+    free(array);
+    return (NULL);
 }
 
-char	**ft_split(const char *str, char c)
-{
-	char	**tab;
-	int		i;
 
-	if (str == 0)
-		return (0);
-	while (*str && *str == c)
-		str++;
-	tab = (char **)malloc(sizeof(char *) * (count_words(str, c) + 1));
-	if (tab == 0)
-		return (0);
-	i = 0;
-	while (*str)
-	{
-		tab[i] = malloc_word(str, c);
-		if (tab[i] == NULL)
-			return (ft_free(tab));
-		while (*str && *str != c)
-			str++;
-		while (*str && *str == c)
-			str++;
-		i++;
-	}
-	tab[i] = 0;
-	return (tab);
+char **process_tokens(char **result_array, const char *input_string, char delimiter)
+{
+    int array_index;
+    
+    array_index = 0;
+    while (*input_string)
+    {
+        result_array[array_index] = allocate_word(input_string, delimiter);
+        if (result_array[array_index] == NULL)
+            return (free_on_error(result_array));
+        while (*input_string && *input_string != delimiter)
+            input_string++;
+        while (*input_string && *input_string == delimiter)
+            input_string++;
+        array_index++;
+    }
+    result_array[array_index] = 0;
+    return (result_array);
+}
+
+char **ft_split(const char *input_string, char delimiter)
+{
+    char **result_array;
+
+    if (input_string == 0)
+        return (0);
+    while (*input_string && *input_string == delimiter)
+        input_string++;
+    result_array = (char **)malloc(sizeof(char *) * (count_words(input_string, delimiter) + 1));
+    if (result_array == 0)
+        return (0);
+    return (process_tokens(result_array, input_string, delimiter));
 }

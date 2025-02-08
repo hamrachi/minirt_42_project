@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:16:07 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/30 17:27:34 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/31 10:42:53 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,14 @@ void create_threads(pthread_t *threads, t_thread_data *thread_data)
     }
 }
 
-void ft_draw(t_render *info, t_scene *sc)
+void init_thread_data_array(t_thread_data *thread_data, t_world *sc, t_tracer *info, int rows_per_thread)
 {
-    pthread_t threads[NUM_THREADS];
-    t_thread_data thread_data[NUM_THREADS];
     t_thread_info thread_info;
-    int rows_per_thread;
+    pthread_mutex_t render_mutex;
     int i;
 
-    rows_per_thread = (HEIGHT + NUM_THREADS - 1) / NUM_THREADS; // Ceiling division for even distribution
-    pthread_mutex_t render_mutex;
-
-    // Initialize mutex for shared data protection
     pthread_mutex_init(&render_mutex, NULL);
-
+    
     i = 0;
     while (i < NUM_THREADS)
     {
@@ -94,10 +88,21 @@ void ft_draw(t_render *info, t_scene *sc)
 
         i++;
     }
+}
 
+void ft_draw(t_tracer *info, t_world *sc)
+{
+    pthread_t       threads[NUM_THREADS];
+    t_thread_data   thread_data[NUM_THREADS];
+    int             rows_per_thread;
+
+    // Ceiling division for even distribution
+    rows_per_thread = (HEIGHT + NUM_THREADS - 1) / NUM_THREADS;
+    // Initialize thread data array
+    init_thread_data_array(thread_data, sc, info, rows_per_thread);
+    // Create and join threads
     create_threads(threads, thread_data);
     join_threads(threads);
-
     // Destroy the mutex after all threads are done
-    pthread_mutex_destroy(&render_mutex);
+    pthread_mutex_destroy(&thread_data[0].render_mutex);
 }

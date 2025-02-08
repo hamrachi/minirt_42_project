@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 21:48:03 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/23 16:51:42 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:57:51 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void validate_ambient_ratio_range(double ratio)
 }
 
 // Helper function to validate ambient parameters (tokens and count)
-void validate_ambient_input(char **args, t_scene *scene)
+void validate_ambient_input(char **args, t_world *scene)
 {
     // Check if tokens are valid (must have at least 3 elements, no more than 3)
     if (!args || !args[1] || !args[2] || args[3])
         report_error("Ambient lighting parameters are invalid!");
     // Check if ambient count is already set
-    if (scene->amb.count != 0)
+    if (scene->amb_light.light_count != 0)
         report_error("There can be only one ambient light source.");
 }
 // Helper function to validate the cylinder diameter

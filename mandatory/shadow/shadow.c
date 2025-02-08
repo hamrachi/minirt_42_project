@@ -6,28 +6,28 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 10:52:56 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/30 17:14:25 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:13:57 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-int	ray_is_inside(t_vec ray, t_vec s_norm)
+int	ray_is_inside(t_point3d ray, t_point3d s_norm)
 {
 	if (dot_product(ray, s_norm) > 0)
 		return (1);
 	return (0);
 }
 
-int	is_point_in_shadow(t_scene *scene, t_inter intersection, t_light *light_source)
+int	is_point_in_shadow(t_world *scene, t_inter_data intersection, t_light_source *light_source)
 { 
-	t_vec		vector_to_light;
+	t_point3d		vector_to_light;
 	t_ray		shadow_ray;
-	t_inter		shadow_hit;
-	t_vec		vector_to_shadow_hit;
+	t_inter_data		shadow_hit;
+	t_point3d		vector_to_shadow_hit;
 
 	// Calculate the vector from the intersection point to the light source
-	vector_to_light = sub_vec(light_source->src, intersection.hit_point);
+	vector_to_light = sub_vec(light_source->position, intersection.hit_point);
 	// Configure the shadow ray with its origin at the intersection point and direction toward the light source
 	shadow_ray.origin = intersection.hit_point;
 	shadow_ray.direction = scale_to_one(vector_to_light);
@@ -41,10 +41,10 @@ int	is_point_in_shadow(t_scene *scene, t_inter intersection, t_light *light_sour
 	return (0); // The point is not in shadow
 }
 
-t_vec	diffuse(t_inter inter, t_light *light, double d)
+t_point3d	diffuse(t_inter_data inter, t_light_source *light, double d)
 {
-	t_vec	diff;
+	t_point3d	diff;
 
-	diff = scale_and_combine_colors(inter.color, light->col, d * light->ratio);
+	diff = scale_and_combine_colors(inter.color, light->light_color, d * light->brightness);
 	return (diff);
 }

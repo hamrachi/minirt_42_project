@@ -6,15 +6,15 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:00:02 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/12/30 17:13:32 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:58:19 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-t_inter calc_sphere_normal(t_inter current_hit, t_objs *sphere, t_ray *ray)
+t_inter_data calc_sphere_normal(t_inter_data current_hit, t_scene_element *sphere, t_ray *ray)
 {
-    t_inter new_hit;
+    t_inter_data new_hit;
 
     // Calculate the intersection distance between the ray and the sphere
     new_hit.t = calc_sp_ray_inter(ray, sphere);
@@ -33,39 +33,39 @@ t_inter calc_sphere_normal(t_inter current_hit, t_objs *sphere, t_ray *ray)
     return (current_hit);
 }
 
-double calc_sp_ray_inter(t_ray *ray, t_objs *sphere)
+double calc_sp_ray_inter(t_ray *ray, t_scene_element *sphere)
 {
-    t_sphere    calc;
-    t_vec       ray_to_center;
+    t_sph_calc    calc;
+    t_point3d       ray_to_center;
     double      radius;
 
     ray_to_center = sub_vec(ray->origin, sphere->center); // Vector from ray origin to sphere center
-    radius = sphere->p.x / 2.0; // Radius of the sphere
+    radius = sphere->param.x_coord / 2.0; // Radius of the sphere
 
-    calc.a = dot_product(ray->direction, ray->direction); // Ray direction magnitude squared
-    calc.b = 2.0 * dot_product(ray_to_center, ray->direction); // Linear coefficient
-    calc.c = dot_product(ray_to_center, ray_to_center) - (radius * radius); // Distance offset
+    calc.quad_a = dot_product(ray->direction, ray->direction); // Ray direction magnitude squared
+    calc.quad_b = 2.0 * dot_product(ray_to_center, ray->direction); // Linear coefficient
+    calc.quad_c = dot_product(ray_to_center, ray_to_center) - (radius * radius); // Distance offset
 
-    calc.discri = calc.b * calc.b - (4 * calc.a * calc.c); // Discriminant
+    calc.delta = calc.quad_b * calc.quad_b - (4 * calc.quad_a * calc.quad_c); // Discriminant
 
     // If discriminant is negative, no intersection
-    if (calc.discri < EPSILON)
+    if (calc.delta < EPSILON)
         return (-1);
 
     // Compute possible intersection distances
-    calc.t1 = (-calc.b - sqrt(calc.discri)) / (2.0 * calc.a);
-    calc.t2 = (-calc.b + sqrt(calc.discri)) / (2.0 * calc.a);
+    calc.hit1 = (-calc.quad_b - sqrt(calc.delta)) / (2.0 * calc.quad_a);
+    calc.hit2 = (-calc.quad_b + sqrt(calc.delta)) / (2.0 * calc.quad_a);
 
     // Determine the closest valid intersection point
-    if (calc.t1 * calc.t2 > EPSILON) // Both intersections are positive
+    if (calc.hit1 * calc.hit2 > EPSILON) // Both intersections are positive
     {
-        if (calc.t1 > EPSILON)
-            return (take_min(calc.t1, calc.t2));
+        if (calc.hit1 > EPSILON)
+            return (find_min(calc.hit1, calc.hit2));
         return (-1); // No valid intersection
     }
 
-    if (calc.t1 > EPSILON) // First intersection is valid
-        return (calc.t1);
+    if (calc.hit1 > EPSILON) // First intersection is valid
+        return (calc.hit1);
 
-    return (calc.t2); // Second intersection is valid
+    return (calc.hit2); // Second intersection is valid
 }
