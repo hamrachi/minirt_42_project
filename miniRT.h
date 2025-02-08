@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/09 13:16:23 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:33:42 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,5 +167,8 @@ void		ft_render(t_scene *sc);
 void ft_draw(t_render info, t_scene *sc);
 void	*render_section(void *arg);
 
+
+// dyali 
+int parse_scene_file1(t_scene *sc, int fd);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:56:01 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/16 19:04:09 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:35:46 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,21 @@ void parse_scene_file(t_scene *sc, int fd)
         process_scene_line(tokens, sc);
         free_split(tokens);
     }
+}
+int parse_scene_file1(t_scene *sc, int fd)
+{
+    char **tokens;
+
+    tokens = NULL;
+    while (1)
+    {
+        // if (line(fd) == NULL)
+        //     break;
+        tokens = ft_split(line(fd), ' ');
+        if (tokens == NULL)
+            return(0);
+        process_scene_line(tokens, sc);
+        free_split(tokens);   
+    }
+     return(1);
 }
