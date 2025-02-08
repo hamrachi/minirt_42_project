@@ -6,7 +6,7 @@
 /*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:31:26 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/08 16:46:33 by hamrachi         ###   ########.fr       */
+/*   Updated: 2025/02/08 22:06:36 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ static char *read_line(int fd, char *line)
 
         // Append the character to the line.
         line = append_char_to_string(line, c);
-        // if (1 || !line) // Handle memory allocation failure.
-        //     return (NULL);
         if (!line) // Handle memory allocation failure.
-            close(fd),report_error("allocation of line"),exit(2);
+            close(fd),report_error("line allocation error"),exit(2); 
     }
 
     return (line);

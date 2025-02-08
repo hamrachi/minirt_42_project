@@ -6,7 +6,7 @@
 /*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:56:01 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/08 19:21:16 by hamrachi         ###   ########.fr       */
+/*   Updated: 2025/02/08 22:06:18 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,11 @@ void parse_scene_file(t_world *sc, int fd)
     while (1)
     {
         tokens = ft_split(line(fd), ' ');
-        
         if (tokens == NULL)
             break;
-
         process_scene_line(tokens, sc);
-        
         free_split(tokens);
     }
 
+    close(fd);
 }

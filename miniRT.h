@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/08 19:15:11 by hamrachi         ###   ########.fr       */
+/*   Updated: 2025/02/01 09:51:18 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,5 @@ void		ft_render(t_world *sc);
 void ft_draw(t_tracer info, t_world *sc);
 void	*render_section(void *arg);
 
-
-// dyali 
 
 #endif

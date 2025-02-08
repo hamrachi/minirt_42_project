@@ -6,7 +6,7 @@
 /*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:56:55 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/08 19:14:34 by hamrachi         ###   ########.fr       */
+/*   Updated: 2025/02/08 19:42:26 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	main(int ac, char **av)
 	if (!scene)
 		report_error("allocation");
 	parse_scene_file(scene, fd);
-	// if (parse_scene_file1(scene, fd) == 0)
-	// 	(close(fd), report_error("allocation"));
 	ft_render(scene);
 	gc_cleanup(&garbage_collector, garbage_collector);
 	close(fd);
