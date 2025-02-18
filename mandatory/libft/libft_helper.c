@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   libft_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:40:45 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/31 12:01:13 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:28:33 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-double find_min(double first_num, double second_num)
+double  find_min(double first_num, double second_num)
 {
     if (first_num > second_num)
         return (second_num);
