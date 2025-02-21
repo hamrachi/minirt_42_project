@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:43:19 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/31 10:22:02 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:10:50 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cam_matrix	initialize_camera_params(t_world *sc)
 
 	cam.pos = sc->camera.origin;
 	cam.ratio = (double)WIDTH / (double)HEIGHT;
-	cam.angle = sc->camera.f_o_v * M_PI / 180.0;//convert to radian
+	cam.angle = sc->camera.f_o_v * M_PI / 180.0;
 	cam.w = tan(cam.angle / 2);
 	cam.h = cam.ratio * cam.w;
 	cam.fwd_vec = sc->camera.orientation;
@@ -31,9 +31,7 @@ t_cam_matrix	set_camera(t_world *sc)
 	t_cam_matrix	cam;
 	t_point3d		ref_world_up;
 
-	// Initialize the camera parameters
 	cam = initialize_camera_params(sc);
-	// Set ref_axis and calculate up and right vectors
 	ref_world_up = create_vector(0.0, -1.0, 0.0);
 	cam.up_vec = scale_to_one(cross_product(cam.fwd_vec, ref_world_up));
 	cam.right_vec = scale_to_one(cross_product(cam.fwd_vec, cam.up_vec));
@@ -42,10 +40,10 @@ t_cam_matrix	set_camera(t_world *sc)
 
 t_ray	ray_primary(t_cam_matrix *cam, double v, double u)
 {
-	t_ray	ray;
+	t_ray		ray;
 	t_point3d	vertical_offset;
-	t_point3d horizontal_offset;
-	t_point3d combine_offset;
+	t_point3d	horizontal_offset;
+	t_point3d	combine_offset;
 
 	ray.origin = cam->pos;
 	vertical_offset = mult_vec(cam->up_vec, v * cam->h);

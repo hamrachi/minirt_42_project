@@ -3,8 +3,7 @@ NAME = miniRT
 NAME_B = miniRT_BONUS
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
-
+CFLAGS = -Wall -Wextra -Werror
 SRC_DIR = mandatory
 
 SRC_B_DIR = bonus
@@ -47,9 +46,6 @@ OBJ_B = $(DEPS_B:$(SRC_B_DIR)/%.c=$(OBJ_B_DIR)/%.o)
 
 all: $(NAME)
 
-
-# $(NAME):$(OBJS)
-# 	$(CC) -lmlx -framework OpenGL -framework AppKit $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ)  -lmlx \
