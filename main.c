@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:56:55 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/18 13:05:28 by hamrachi         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:21:06 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int ac, char **av)
 		report_error("allocation");
 	parse_scene_file(scene, fd);
 	ft_render(scene);
-	gc_cleanup(&garbage_collector, garbage_collector);
+	gc_cleanup(&g_garbage_collector, g_garbage_collector);
 	close(fd);
 	return (0);
 }

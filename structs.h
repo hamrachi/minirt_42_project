@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/01 11:40:39 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:53:55 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ typedef struct s_point3d
 
 typedef struct s_canvas
 {
-    void    *mlx_img;           // More descriptive name than 'img'
-    char    *pixel_buffer;      // More descriptive than 'addr'
-    int     color_depth;        // Instead of bits_per_pixel
-    int     stride;             // Instead of line_length (common graphics term)
-    int     byte_order;         // Instead of endian (more descriptive)
-    int     resolution[2];      // Combines width and height into an array
+	void    *mlx_img;           // More descriptive name than 'img'
+	char    *pixel_buffer;      // More descriptive than 'addr'
+	int     color_depth;        // Instead of bits_per_pixel
+	int     stride;             // Instead of line_length (common graphics term)
+	int     byte_order;         // Instead of endian (more descriptive)
+	int     resolution[2];      // Combines width and height into an array
 }   t_canvas;
 
 
@@ -89,18 +89,18 @@ typedef struct s_viewport
 
 typedef struct s_light_source
 {
-    t_point3d            position;       // Instead of 'src' - light position
-    double              brightness;      // Instead of 'ratio' - more intuitive
-    t_point3d            light_color;    // Instead of 'col' - more descriptive
-    struct s_light_source   *next;       // Keep linked list functionality
+	t_point3d            position;       // Instead of 'src' - light position
+	double              brightness;      // Instead of 'ratio' - more intuitive
+	t_point3d            light_color;    // Instead of 'col' - more descriptive
+	struct s_light_source   *next;       // Keep linked list functionality
 }   t_light_source;
 
 
 typedef struct s_a_light
 {
 	t_point3d   light_color;    // Instead of 'col' - more descriptive
-    double      intensity;      // Instead of 'ratio' - common lighting term
-    int         light_count;    // Instead of 'count' - clearer purpose
+	double      intensity;      // Instead of 'ratio' - common lighting term
+	int         light_count;    // Instead of 'count' - clearer purpose
 }	t_a_light;
 
 
@@ -123,8 +123,8 @@ typedef struct s_world
 
 typedef struct s_heap_track
 {
-    void               	*addr;    // Memory address
-    struct s_heap_track	*next;   // Next tracked address
+	void               	*addr;    // Memory address
+	struct s_heap_track	*next;   // Next tracked address
 }   t_heap_track;
 
 
@@ -132,14 +132,14 @@ typedef struct s_heap_track
 
 typedef struct s_cam_matrix
 {
-    t_point3d    pos;        // Instead of 'orig'
-    t_point3d    up_vec;     // Instead of 'up'
-    t_point3d    right_vec;  // Instead of 'right'
-    t_point3d    fwd_vec;    // Instead of 'forward'
-    double      h;          // Instead of 'height'
-    double      w;          // Instead of 'width'
-    double      ratio;      // Instead of 'aspect_r'
-    double      angle;      // Instead of 'theta'
+	t_point3d    pos;        // Instead of 'orig'
+	t_point3d    up_vec;     // Instead of 'up'
+	t_point3d    right_vec;  // Instead of 'right'
+	t_point3d    fwd_vec;    // Instead of 'forward'
+	double      h;          // Instead of 'height'
+	double      w;          // Instead of 'width'
+	double      ratio;      // Instead of 'aspect_r'
+	double      angle;      // Instead of 'theta'
 }   t_cam_matrix;
 
 typedef struct ray
@@ -152,15 +152,15 @@ typedef struct ray
 
 typedef struct s_tracer
 {
-    t_vars          data;       // "vars" Core variables
-    t_canvas        frame;      // "img"Frame buffer
-    double          vpos;       // "v" Vertical position
-    double          hpos;       // "u" Horizontal position
-    int             col;        // "x" Column index
-    int             row;        // "y" Row index
-    t_cam_matrix    camera;        // Camera setup
-    t_ray           path;       // "Ray" path
-    t_point3d       rgb;        // "ray_color" Pixel color
+	t_vars          data;       // "vars" Core variables
+	t_canvas        frame;      // "img"Frame buffer
+	double          vpos;       // "v" Vertical position
+	double          hpos;       // "u" Horizontal position
+	int             col;        // "x" Column index
+	int             row;        // "y" Row index
+	t_cam_matrix    camera;        // Camera setup
+	t_ray           path;       // "Ray" path
+	t_point3d       rgb;        // "ray_color" Pixel color
 }   t_tracer;
 
 // Intersection 
@@ -168,35 +168,35 @@ typedef struct s_tracer
 
 typedef struct s_sph_calc
 {
-    double      quad_a;     // Instead of 'a' - quadratic a term
-    double      quad_b;     // Instead of 'b' - quadratic b term
-    double      quad_c;     // Instead of 'c' - quadratic c term
-    double      delta;      // Instead of 'discri' (discriminant)
-    double      hit1;       // Instead of 't1' - first intersection
-    double      hit2;       // Instead of 't2' - second intersection
-    t_point3d   rel_pos;    // Instead of 'oc' (origin to center vector)
+	double      quad_a;     // Instead of 'a' - quadratic a term
+	double      quad_b;     // Instead of 'b' - quadratic b term
+	double      quad_c;     // Instead of 'c' - quadratic c term
+	double      delta;      // Instead of 'discri' (discriminant)
+	double      hit1;       // Instead of 't1' - first intersection
+	double      hit2;       // Instead of 't2' - second intersection
+	t_point3d   rel_pos;    // Instead of 'oc' (origin to center vector)
 }   t_sph_calc;
 
 
 typedef struct s_cyl_calc
 {
-    double      quad_a;        // First coefficient
-    double      quad_b;        // Second coefficient
-    double      quad_c;        // Third coefficient
-    double      sel_t;         // Selected intersection
-    double      hit1;          // First intersection
-    double      hit2;          // Second intersection
-    double      delta;         // Discriminant
-    double      h2;            // Height at hit2
-    double      h1;            // Height at hit1
-    t_point3d   ray_to_center;       // Relative position vector
-    t_point3d   norm_axis;     // Normalized direction
+	double      quad_a;        // First coefficient
+	double      quad_b;        // Second coefficient
+	double      quad_c;        // Third coefficient
+	double      sel_t;         // Selected intersection
+	double      hit1;          // First intersection
+	double      hit2;          // Second intersection
+	double      delta;         // Discriminant
+	double      h2;            // Height at hit2
+	double      h1;            // Height at hit1
+	t_point3d   ray_to_center;       // Relative position vector
+	t_point3d   norm_axis;     // Normalized direction
 }   t_cyl_calc;
 
 typedef struct s_ndc
 {
-    double u;
-    double v;
+	double u;
+	double v;
 } t_ndc;
 //=-=-=-=-=-
 

@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:07:23 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/30 17:51:07 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:13:53 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 t_point3d	scale_to_one(t_point3d v)
 {
-	double	length;
+	double		length;
 	t_point3d	normalized;
 
-	length = sqrt(v.x_coord * v.x_coord + v.y_coord * v.y_coord + v.z_coord * v.z_coord);
+	length = sqrt(v.x_coord * v.x_coord \
+		+ v.y_coord * v.y_coord + v.z_coord * v.z_coord);
 	if (length == 0)
 		return (v);
 	normalized.x_coord = v.x_coord / length;

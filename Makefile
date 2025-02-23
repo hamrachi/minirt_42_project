@@ -24,13 +24,13 @@ DEPS = main.c \
 		$(SRC_DIR)/garbedge_collector/allocation.c $(SRC_DIR)/garbedge_collector/garbedge.c $(SRC_DIR)/gnl/line.c \
 
 DEPS_B = main_bonus.c \
-		$(SRC_B_DIR)/parsing/parsing.c $(SRC_B_DIR)/parsing/parsing_utils.c $(SRC_B_DIR)/parsing/parsing1.c \
+		$(SRC_B_DIR)/parsing/parsing.c $(SRC_B_DIR)/parsing/parsing_utils.c $(SRC_B_DIR)/parsing/parsing3.c $(SRC_B_DIR)/parsing/parsing2.c\
 		$(SRC_B_DIR)/parsing/parsing_utils1.c $(SRC_B_DIR)/parsing/parsing_utils2.c $(SRC_B_DIR)/parsing/parsing_utils3.c \
 		$(SRC_B_DIR)/vectors/vec2r.c $(SRC_B_DIR)/vectors/vec_magnitude.c $(SRC_B_DIR)/vectors/vec2r1.c \
 		$(SRC_B_DIR)/objects_intersections/plane.c $(SRC_B_DIR)/objects_intersections/sphere.c \
 		$(SRC_B_DIR)/colors/colors.c $(SRC_B_DIR)/mlx/mlx_function.c $(SRC_B_DIR)/objects_intersections/intersection.c \
 		$(SRC_B_DIR)/objects_intersections/cylinder.c $(SRC_B_DIR)/camera/camera.c $(SRC_B_DIR)/raytracing/threads.c \
-		$(SRC_B_DIR)/raytracing/ft_render.c $(SRC_B_DIR)/raytracing/supersimpler.c $(SRC_B_DIR)/raytracing/supersimpler1.c \
+		$(SRC_B_DIR)/raytracing/ft_render.c $(SRC_B_DIR)/raytracing/supersimpler.c $(SRC_B_DIR)/raytracing/supersimpler1.c $(SRC_B_DIR)/libft/libft_helper3.c \
 		$(SRC_B_DIR)/shadow/shadow.c $(SRC_B_DIR)/libft/libft_helper.c $(SRC_B_DIR)/libft/libft_helper1.c $(SRC_B_DIR)/libft/libft_helper2.c \
 		$(SRC_B_DIR)/garbedge_collector/allocation.c $(SRC_B_DIR)/garbedge_collector/garbedge.c $(SRC_B_DIR)/gnl/line.c \
 		$(SRC_B_DIR)/colors/checker_board.c $(SRC_B_DIR)/colors/specular.c \

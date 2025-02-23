@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 00:06:57 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/18 15:27:57 by hamrachi         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:23:20 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	report_error(char *str)
 	while (str[++i])
 		write(2, &str[i], 1);
 	write(2, "\n", 1);
-	gc_cleanup(&garbage_collector, garbage_collector);
+	gc_cleanup(&g_garbage_collector, g_garbage_collector);
 	exit(1);
 }
 
@@ -37,8 +37,8 @@ t_world	*allocate_scene(void)
 {
 	t_world	*scene;
 
-	garbage_collector = NULL;
-	scene = gc_malloc(&garbage_collector, sizeof(t_world));
+	g_garbage_collector = NULL;
+	scene = gc_malloc(&g_garbage_collector, sizeof(t_world));
 	if (!scene)
 		return (NULL);
 	initialize_scene_fields(scene);
@@ -57,7 +57,7 @@ t_scene_element	*allocate_object(t_world *scene)
 {
 	t_scene_element	*new_object;
 
-	new_object = gc_malloc(&garbage_collector, sizeof(t_scene_element));
+	new_object = gc_malloc(&g_garbage_collector, sizeof(t_scene_element));
 	if (!new_object)
 		return (NULL);
 	init_object_vec(new_object);

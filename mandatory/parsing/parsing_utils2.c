@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:21:28 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 18:19:40 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/23 21:50:41 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	validate_color_range(t_point3d color)
 		|| color.x_coord > 255 || color.y_coord > 255 || color.z_coord > 255)
 		report_error("Color values must be in the range [0, 255].");
 }
-
-//========
 
 void	validate_vec_input(char **args)
 {

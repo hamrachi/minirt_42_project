@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:55:58 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 17:01:10 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/23 20:49:19 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	image_init(t_tracer	*info)
 	if (!info->frame.mlx_img)
 	{
 		mlx_destroy_window(info->data.mlx, info->data.win);
-		report_error("error to get image");
+		(free(info->data.mlx), report_error("error to get image"));
 	}
 	info->frame.pixel_buffer = mlx_get_data_addr(info->frame.mlx_img, \
 		&info->frame.color_depth,
@@ -37,7 +37,7 @@ void	image_init(t_tracer	*info)
 	{
 		mlx_destroy_window(info->data.mlx, info->data.win);
 		mlx_destroy_window(info->data.mlx, info->data.win);
-		report_error("error to get adress");
+		(free(info->data.mlx) ,report_error("error to get adress"));
 	}
 }
 
