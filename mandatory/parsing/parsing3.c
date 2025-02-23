@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 21:49:29 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 18:16:42 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:31:19 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,3 @@ void	parse_cylinder(t_world *scene, char **args)
 	validate_cylinder_diameter(obj->param.x_coord, obj->param.y_coord);
 	obj->color = get_color(args[5]);
 }
-
-// void	parse_sphere(t_world *scene, char **args)
-// {
-// 	t_scene_element	*obj;
-
-// 	validate_sphere_input(args);
-// 	obj = allocate_object(scene);
-// 	obj->type = SPHERE;
-// 	obj->center = get_vec(args[1]);
-// 	obj->param.x_coord = ft_atod(args[2]);
-// 	validate_sphere_diameter(obj->param.x_coord);
-// 	obj->color = get_color(args[3]);
-// }
