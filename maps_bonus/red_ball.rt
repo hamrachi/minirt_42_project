@@ -1,0 +1,17 @@
+# Ambient light
+A 0.3 255,255,255
+
+# Camera (xyz position) (xyz orientation fin katchof) (fil od views zawiya bach kaychof)
+C 0,0,-30 0,0,1 50
+
+# Light
+L 0.3,15,-2 1 255,255,255
+
+# Sphere with checkerboard
+sp 5,5,0 3 255,0,0
+
+
+# Plane with checkerboard
+pl     0,-3,0                   0,1,0              255,255,255
+pl     10,-3,0                   1,0,0              255,255,255
+pl     -10,-3,0                   1,0,0              255,255,255
