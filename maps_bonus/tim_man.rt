@@ -1,0 +1,89 @@
+# Ambient light providing soft global illumination
+A   0.1    255,255,255
+
+# Light source positioned to the left and above the scene
+l   25,2,-30     0.9     255,255,255
+
+# Camera positioned and oriented to view the scene
+C   0,3,-20   0,0,1   80
+
+# Cylinder at the center, acting as a base element
+cy  0,-3.5,0  0,1,0   2   2   120,120,120
+
+# Small spheres at the base of the cylinder
+sp  -0.5,-3.75,-0.8  0.4  137,0,0
+sp  0.5,-3.75,-0.8  0.4  137,0,0
+
+# Rotated cylinder for added detail
+cy  0,-3.5,-1  0.7071,0,0.7071   0.2   0.4   120,120,120
+
+# Another cylinder slightly above the base for layering
+cy  0,-3,0  0,1,0   0.75   3   120,120,120
+
+# A larger cylinder acting as a main structure
+cy  0,0,0  0,1,0   3   4   120,120,120
+
+# Two misaligned spheres (potential typo in x-coordinates)
+sp  0.-55,1.1,-1.2  0.6  137,0,0
+sp  0.-24,1.1,-1.3  0.6  137,0,0
+
+# Two large spheres positioned symmetrically (LKTAF)
+sp  -0.75,-2.25,0  1.5  120,120,120
+sp  0.95,-2.55,0  1.5  120,120,120
+
+# Spheres in the upper part of the scene
+sp  -1.55,1.65,0  1  120,120,120
+sp  1.55,1.65,0  1  120,120,120 
+
+# Cylinders slanting towards the center
+cy  -1.85,0.5,0  0.157991,0.987441,0   0.75   2.5   120,120,120
+cy  2.1,0.8,0  -0.207991,0.997441,0   0.75   2.5   120,120,120 
+
+# Smaller spheres positioned symmetrically
+sp  -2.05,-0.9,0  0.9  120,120,120
+sp  2.05,-0.9,0  0.9  120,120,120
+
+# Cylinders extending from the mid-section downwards (BRA)
+cy  -2.05,-2.25,-0.2  0,0.991228,0.132164   0.6   3   120,120,120
+cy  1.85,-2.25,0  0.157991,0.987441,0   0.6   3   120,120,120
+
+# Base spheres and a series of smaller cylinders for detail (HAND RIGHT OF THE ROBOT)
+sp  -2.05,-3.75,-0.4  0.9  120,120,120
+cy  -2.25,-3.95,-0.4  0,0.991228,0.132164   0.15   3   120,120,120 checker 0.1 0,0,0
+cy  -2.1,-4.05,-0.4  0,0.991228,0.132164   0.15   3   120,120,120 checker 0.1 0,0,0
+cy  -1.95,-4.2,-0.4  0,0.991228,0.132164   0.15   3   120,120,120 checker 0.1 0,0,0
+cy  -1.8,-4.1,-0.4  0,0.991228,0.132164   0.15   3   120,120,120 checker 0.1 0,0,0
+cy  -1.8,-3.9,-0.4  0.7071,-0.7071,0   0.2   1   120,120,120
+
+# Spheres and cylinders for symmetric details
+sp  1.65,-3.85,-0.1  0.9  120,120,120
+cy  1.65,-3.85,-0.1  0.7071,0,0.7071   0.6   6   120,120,120 checker 0.3 0,0,0
+sp  0.65,-3.85,-1.1  1.2  252,195,57
+
+# Cylinders supporting the structure
+cy  -1,-3.5,0  0.157991,0.987441,0   1   3   120,120,120
+cy  1,-3.5,0  -0.157991,0.987441,0   1   3   120,120,120
+sp  -1.25,-5,0  1.15  120,120,120
+sp  1.25,-5,0  1.15  120,120,120
+
+# Final cylinders at the bottom
+cy  -1.25,-7,0  0,1,0   0.8   4   120,120,120
+cy  1.25,-7,0  0,1,0   0.8   4   120,120,120
+cy  -1.25,-9.5,0  0,1,0   0.5   1   120,120,120
+cy  1.25,-9.5,0  0,1,0   0.5   1   120,120,120
+
+# Final spheres and additional cylinders
+sp  -1.25,-9.75,0  1  120,120,120
+sp  1.25,-9.75,0  1  120,120,120
+cy  1.75,-9.75,-0.5  0.7071,0,-0.7071   1   1.25   120,120,120
+cy  -1.75,-9.75,-0.5  0.7071,0,0.7071   1   1.25   120,120,120
+sp  -2.25,-9.75,-0.9  1.1  120,120,120
+sp  2.25,-9.75,-0.9  1.1  120,120,120
+
+# Ground plane for the scene
+pl  0,-10.1,0 0,1,0    255,255,255 checker 0.5 0,0,0
+
+# Back plane for the scene
+pl  0,0,20 0,0,1       50,50,50
+
+co  0,6.5,0  0,-1,0   14 3 85 120,120,120 checker 0.1 0,0,0
