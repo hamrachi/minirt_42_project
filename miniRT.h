@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/01 09:51:18 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:13:57 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,18 @@ void validate_cylinder_diameter(double diameter, double height);
 // parse
 void        report_error(char *str);
 int			is_valid_rt_file(int ac, char **av);
-void        parse_scene_file(t_world *sc, int fd);//
-void        parse_object(char *object_type, char **tokens, t_world *scene);//new
 void		parse_plane(t_world *sc, char **tockens);
 void		parse_cylinder(t_world *sc, char **tockens);
 void		parse_sphere(t_world *sc, char **tockens);
 void		parse_light(t_world *sc, char **tockens);
 void		parse_camera(t_world *sc, char **tockens);
 void		parse_ambient(t_world *sc, char **tockens);
+
+void	parse_object(char *object_type, char **tokens, t_world *scene);
+void	process_scene_line(char **tokens, t_world *sc);
+void	parse_scene_file(t_world *sc, int fd);
+void	parse_scene_shape(const char *shape_type, t_world *scene, char **tokens);
+void	parse_scene_element(char element_type, t_world *scene, char **tokens);
 
 // allocation
 
@@ -83,6 +87,7 @@ t_heap_track **create_and_append(t_heap_track **garbage_collector, void *allocat
 t_heap_track	*garbage_collector;
 
 // tools
+int	ft_strlcpy(char *dest, const char *source, int max_size);
 int			ft_strlen(const char *str);
 char        *append_char_to_string(char *original, char new_char);
 char	    *line(int fd);

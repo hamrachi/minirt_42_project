@@ -14,12 +14,12 @@ OBJ_B_DIR = objects_bonus
 
 
 DEPS = main.c \
-		$(SRC_DIR)/parsing/parsing.c $(SRC_DIR)/parsing/parsing_utils.c $(SRC_DIR)/parsing/parsing1.c \
+		$(SRC_DIR)/parsing/parsing.c $(SRC_DIR)/parsing/parsing_utils.c $(SRC_DIR)/parsing/parsing2.c $(SRC_DIR)/parsing/parsing3.c \
 		$(SRC_DIR)/parsing/parsing_utils1.c $(SRC_DIR)/parsing/parsing_utils2.c $(SRC_DIR)/parsing/parsing_utils3.c \
 		$(SRC_DIR)/vectors/vec2r.c $(SRC_DIR)/vectors/vec_magnitude.c $(SRC_DIR)/vectors/vec2r1.c \
 		$(SRC_DIR)/objects_intersections/plane.c $(SRC_DIR)/objects_intersections/sphere.c \
 		$(SRC_DIR)/colors/colors.c $(SRC_DIR)/mlx/mlx_function.c $(SRC_DIR)/objects_intersections/intersection.c \
-		$(SRC_DIR)/objects_intersections/cylinder.c $(SRC_DIR)/camera/camera.c $(SRC_DIR)/raytracing/ft_render.c \
+		$(SRC_DIR)/objects_intersections/cylinder.c $(SRC_DIR)/camera/camera.c $(SRC_DIR)/raytracing/ft_render.c $(SRC_DIR)/libft/libft_helper3.c\
 		$(SRC_DIR)/shadow/shadow.c $(SRC_DIR)/libft/libft_helper.c $(SRC_DIR)/libft/libft_helper1.c $(SRC_DIR)/libft/libft_helper2.c \
 		$(SRC_DIR)/garbedge_collector/allocation.c $(SRC_DIR)/garbedge_collector/garbedge.c $(SRC_DIR)/gnl/line.c \
 

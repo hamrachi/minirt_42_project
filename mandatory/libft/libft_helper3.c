@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_magnitude.c                                    :+:      :+:    :+:   */
+/*   libft_helper3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 11:07:23 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 18:26:47 by elel-bah         ###   ########.fr       */
+/*   Created: 2025/02/23 16:48:31 by elel-bah          #+#    #+#             */
+/*   Updated: 2025/02/23 16:56:40 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-t_point3d	scale_to_one(t_point3d v)
+int	ft_strlcpy(char *dest, const char *source, int max_size)
 {
-	double		length;
-	t_point3d	normalized;
+	int	index;
+	int	source_len;
 
-	length = sqrt(v.x_coord * v.x_coord \
-		+ v.y_coord * v.y_coord + v.z_coord * v.z_coord);
-	if (length == 0)
-		return (v);
-	normalized.x_coord = v.x_coord / length;
-	normalized.y_coord = v.y_coord / length;
-	normalized.z_coord = v.z_coord / length;
-	return (normalized);
+	index = 0;
+	source_len = ft_strlen((char *)source);
+	if (!source)
+		return (0);
+	if (max_size == 0)
+		return (source_len);
+	while (source[index] && index < (max_size - 1))
+	{
+		dest[index] = source[index];
+		index++;
+	}
+	dest[index] = '\0';
+	return (source_len);
 }

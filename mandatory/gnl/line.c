@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:31:26 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 15:46:27 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/23 16:39:50 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,27 @@ static char	*read_line(int fd, char *line)
 	while (read(fd, &c, 1))
 	{
 		if (c == '\n' && line == NULL)
-			continue;
+			continue ;
 		if (c == '\n')
 		{
 			if (line && line[0] == '#')
 			{
 				free(line);
 				line = NULL;
-				continue;
+				continue ;
 			}
-			break;
+			break ;
 		}
 		line = append_char_to_string(line, c);
 		if (!line)
-			close(fd),report_error("line allocation error"),exit(2); 
+			(close(fd), report_error("line allocation error"), exit(2));
 	}
 	return (line);
 }
 
-char *line(int fd)
+char	*line(int fd)
 {
-	static char *line;
+	static char	*line;
 
 	line = NULL;
 	if (line)
