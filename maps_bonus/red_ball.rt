@@ -2,7 +2,7 @@
 A 0.3 255,255,255
 
 # Camera (xyz position) (xyz orientation fin katchof) (fil od views zawiya bach kaychof)
-C 0,0,-30 0,0,1 50
+C 0,0,-30 0,0,1 30
 
 # Light
 L 0.3,15,-2 1 255,255,255

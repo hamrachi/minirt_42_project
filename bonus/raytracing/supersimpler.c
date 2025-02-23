@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 15:15:31 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/02 16:35:27 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/23 16:00:34 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_ssaa_config	init_ssaa_config(void)
 {
 	t_ssaa_config	config;
 
-	config.samples_per_side = 4;
+	config.samples_per_side = 8;
 	config.total_samples = config.samples_per_side * config.samples_per_side;
 	config.subpixel_step = 1.0 / config.samples_per_side;
 	config.inv_total_samples = 1.0 / config.total_samples;
