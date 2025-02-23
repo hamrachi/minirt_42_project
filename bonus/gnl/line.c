@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:31:26 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/02 16:06:17 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:38:23 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,8 @@ static char *read_line(int fd, char *line)
         // Append the character to the line.
         line = append_char_to_string(line, c);
         if (!line) // Handle memory allocation failure.
-            return (NULL);
+              close(fd),report_error("line allocation error"),exit(2);
     }
-
     return (line);
 }
 

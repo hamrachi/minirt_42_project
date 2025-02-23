@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:56:01 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/30 20:11:44 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:38:47 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void parse_scene_element(char element_type, t_world *scene, char **tokens)
         parse_ambient(scene, tokens);
     else if (element_type == 'C')
         parse_camera(scene, tokens);
-    else if (element_type == 'l')
+    else if (element_type == 'L')
         parse_light(scene, tokens);
     else
         report_error("invalid scene element");
@@ -93,7 +93,7 @@ void parse_object(char *object_type, char **tokens, t_world *scene)
 {
     if ((object_type[0] == 'A' && object_type[1] == '\0') ||
         (object_type[0] == 'C' && object_type[1] == '\0') ||
-        (object_type[0] == 'l' && object_type[1] == '\0'))
+        (object_type[0] == 'L' && object_type[1] == '\0'))
     {
         parse_scene_element(object_type[0], scene, tokens);
     }
@@ -122,12 +122,9 @@ void parse_scene_file(t_world *sc, int fd)
     while (1)
     {
         tokens = ft_split(line(fd), ' ');
-        
         if (tokens == NULL)
             break;
-
         process_scene_line(tokens, sc);
-        
         free_split(tokens);
     }
 

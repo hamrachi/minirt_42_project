@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:16:12 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/31 10:40:45 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:06:19 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ void ft_draw(t_tracer info, t_world *sc)
 {
     int y;
     
-    y = HEIGHT - 1;
-    while (y >= 0)
+    //y = HEIGHT - 1;
+   y = 0;
+    while (y < HEIGHT)
     {
         draw_row(&info, sc, y);
-        y--;
+        y++;
     }
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:56:01 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/01/30 20:16:34 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:39:24 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void parse_scene_element(char element_type, t_world *scene, char **tokens)
         parse_ambient(scene, tokens);
     else if (element_type == 'C')
         parse_camera(scene, tokens);
-    else if (element_type == 'l')
+    else if (element_type == 'L')
         parse_light(scene, tokens);
     else
         report_error("invalid scene element");
@@ -89,14 +89,13 @@ void parse_object(char *object_type, char **tokens, t_world *scene)
 {
     if ((object_type[0] == 'A' && object_type[1] == '\0') ||
         (object_type[0] == 'C' && object_type[1] == '\0') ||
-        (object_type[0] == 'l' && object_type[1] == '\0'))
+        (object_type[0] == 'L' && object_type[1] == '\0'))
     {
         parse_scene_element(object_type[0], scene, tokens);
     }
     else if ((ft_strcmp(object_type, "sp") == 0) ||
              (ft_strcmp(object_type, "pl") == 0) ||
-             (ft_strcmp(object_type, "cy") == 0) ||
-             (ft_strcmp(object_type, "co") == 0))
+             (ft_strcmp(object_type, "cy") == 0))
     {
         parse_scene_shape(object_type, scene, tokens);
     }
