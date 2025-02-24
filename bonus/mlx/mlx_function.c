@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_function.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:55:58 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/24 15:18:47 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:27:38 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	image_init(t_tracer	*info)
 	if (!info->frame.pixel_buffer)
 	{
 		mlx_destroy_window(info->data.mlx, info->data.win);
-		mlx_destroy_window(info->data.mlx, info->data.win);
+		mlx_destroy_image(info->data.mlx, info->frame.mlx_img);
 		(free(info->data.mlx), report_error("error to get adress"));
 	}
 }
