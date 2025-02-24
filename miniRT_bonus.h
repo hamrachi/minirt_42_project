@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 22:53:16 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:24:52 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void				create_threads(pthread_t *threads, \
 	t_thread_data *thread_data);
 void				init_thread_data(t_thread_data *data, t_thread_info *info);
 int					get_thread_end_row(int thread_id, int rows_per_thread);
-voiD				init_thread_data_array(t_thread_data *thread_data, \
+void				init_thread_data_array(t_thread_data *thread_data, \
 	t_world *sc, t_tracer *info, int rows_per_thread);
 
 //=-=-=-SSAA
