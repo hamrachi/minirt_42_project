@@ -6,12 +6,12 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 23:07:51 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/24 14:43:58 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef STRUCTS_BONUS_H
+# define STRUCTS_BONUS_H
 
 /* img info struct */
 
@@ -24,14 +24,13 @@ typedef struct s_point3d
 
 typedef struct s_canvas
 {
-	void    *mlx_img;
-	char    *pixel_buffer;
-	int     color_depth;
-	int     stride;
-	int     byte_order;
-	int     resolution[2];
-}   t_canvas;
-
+	void	*mlx_img;
+	char	*pixel_buffer;
+	int		color_depth;
+	int		stride;
+	int		byte_order;
+	int		resolution[2];
+}	t_canvas;
 
 // Add this to your header file
 typedef struct s_texture
@@ -43,20 +42,18 @@ typedef struct s_texture
 	t_canvas	*image;
 	double		scale_u;
 	double		scale_v;
-} t_texture;
+}	t_texture;
 
 typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
-}				t_vars;
+}	t_vars;
 
-
-
-typedef struct s_scene_element 
+typedef struct s_scene_element
 {
 	int						type;
-	t_texture 				texture;
+	t_texture				texture;
 	t_point3d				center;
 	t_point3d				direction;
 	t_point3d				color;
@@ -71,9 +68,9 @@ typedef struct s_inter_data
 	t_point3d	color;
 	t_point3d	hit_point;
 	t_point3d	normal;
-	int         obj_type;
-	int 		has_checkerboard;
-	t_texture   texture;
+	int			obj_type;
+	int			has_checkerboard;
+	t_texture	texture;
 }	t_inter_data;
 
 typedef struct s_viewport
@@ -90,8 +87,7 @@ typedef struct s_light_source
 	double					brightness;
 	t_point3d				light_color;
 	struct s_light_source	*next;
-}   t_light_source;
-
+}	t_light_source;
 
 typedef struct s_a_light
 {
@@ -99,8 +95,6 @@ typedef struct s_a_light
 	double		intensity;
 	int			light_count;
 }	t_a_light;
-
-
 
 typedef struct s_world
 {
@@ -118,9 +112,7 @@ typedef struct s_heap_track
 {
 	void				*addr;
 	struct s_heap_track	*next;
-}   t_heap_track;
-
-
+}	t_heap_track;
 /* camera */
 
 typedef struct s_cam_matrix
@@ -133,7 +125,7 @@ typedef struct s_cam_matrix
 	double			w;
 	double			ratio;
 	double			angle;
-}   t_cam_matrix;
+}	t_cam_matrix;
 
 typedef struct ray
 {
@@ -154,10 +146,9 @@ typedef struct s_tracer
 	t_cam_matrix	camera;
 	t_ray			path;
 	t_point3d		rgb;
-}   t_tracer;
+}	t_tracer;
 
 // Intersection 
-
 
 typedef struct s_sph_calc
 {
@@ -168,8 +159,7 @@ typedef struct s_sph_calc
 	double		hit1;
 	double		hit2;
 	t_point3d	rel_pos;
-}   t_sph_calc;
-
+}	t_sph_calc;
 
 typedef struct s_cyl_calc
 {
@@ -184,9 +174,7 @@ typedef struct s_cyl_calc
 	double		h1;
 	t_point3d	ray_to_center;
 	t_point3d	norm_axis;
-}   t_cyl_calc;
-
-//=-=-=-=-=-
+}	t_cyl_calc;
 
 typedef struct s_thread_info
 {
@@ -194,21 +182,19 @@ typedef struct s_thread_info
 	int			rows_per_thread;
 	t_world		*scene;
 	t_tracer	*render_info;
-} t_thread_info;
+}	t_thread_info;
 
-typedef struct s_thread_data 
+typedef struct s_thread_data
 {
-	int			thread_id;
-	int			start_row;
-	int			end_row;
-	t_world		*scene;
-	t_tracer	*info;
+	int				thread_id;
+	int				start_row;
+	int				end_row;
+	t_world			*scene;
+	t_tracer		*info;
+	pthread_mutex_t	render_mutex;
+}	t_thread_data;
 
-	pthread_mutex_t render_mutex;
-	
-} t_thread_data;
-
-typedef struct s_ssaa_config 
+typedef struct s_ssaa_config
 {
 	int		samples_per_side;
 	double	subpixel_step;
