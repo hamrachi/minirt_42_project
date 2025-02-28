@@ -6,13 +6,14 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:31:26 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 15:26:39 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:56:55 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT.h"
 
-char	*append_char_to_string(char *original, char new_char, t_heap_track **g_garbage_collector)
+char	*append_char_to_string(char *original, char new_char, \
+	t_heap_track **g_garbage_collector)
 {
 	char	*new_str;
 	size_t	i;
@@ -33,7 +34,6 @@ char	*append_char_to_string(char *original, char new_char, t_heap_track **g_garb
 	}
 	new_str[original_len] = new_char;
 	new_str[original_len + 1] = '\0';
-	// No need to free original since the garbage collector will handle it
 	return (new_str);
 }
 
