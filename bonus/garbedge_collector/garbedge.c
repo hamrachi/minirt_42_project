@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 00:08:16 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 16:46:54 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:25:41 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,18 @@ void	*gc_malloc_b(t_heap_track **g_garbage_collector, size_t size)
 }
 
 void	gc_cleanup_b(t_heap_track **g_garbage_collector, \
-		t_heap_track *collector_node)
+	t_heap_track *collector_node)
 {
-	if (!collector_node)
-		return ;
-	gc_cleanup_b(g_garbage_collector, collector_node->next);
-	free(collector_node->addr);
-	free(collector_node);
+	t_heap_track	*current;
+	t_heap_track	*next_node;
+
+	current = collector_node;
+	while (current)
+	{
+		next_node = current->next;
+		free(current->addr);
+		free(current);
+		current = next_node;
+	}
+	*g_garbage_collector = NULL;
 }
