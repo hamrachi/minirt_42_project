@@ -6,70 +6,70 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 21:15:50 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 15:50:01 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:03:28 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-void	parse_plane(t_world *scene, char **args)
+void	parse_plane_b(t_world *scene, char **args)
 {
 	t_scene_element	*obj;
 
-	validate_plane_input(args);
-	obj = allocate_object(scene);
+	validate_plane_input_b(args);
+	obj = allocate_object_b(scene);
 	obj->type = PLAN;
-	obj->center = get_vec(args[1]);
-	obj->direction = get_vec(args[2]);
-	validate_plane_orientation(obj->direction);
-	obj->color = get_color(args[3]);
+	obj->center = get_vec_b(args[1]);
+	obj->direction = get_vec_b(args[2]);
+	validate_plane_orientation_b(obj->direction);
+	obj->color = get_color_b(args[3]);
 	obj->texture.has_checkerboard = 0;
-	parse_checkerboard(&obj->texture, args, 4);
+	parse_checkerboard_b(&obj->texture, args, 4);
 }
 
-t_point3d	get_color(char *str)
+t_point3d	get_color_b(char *str)
 {
 	char		**args;
 	t_point3d	color;
 
-	args = ft_split(str, ',', &g_garbage_collector);
-	validate_color_input(args);
-	color = (t_point3d){ft_atoi(args[0]), ft_atoi(args[1]), ft_atoi(args[2])};
-	validate_color_range(color);
+	args = ft_split_b(str, ',', &g_garbage_collector);
+	validate_color_input_b(args);
+	color = (t_point3d){ft_atoi_b(args[0]), ft_atoi_b(args[1]), ft_atoi_b(args[2])};
+	validate_color_range_b(color);
 	return (color);
 }
 
-t_point3d	get_vec(char *s)
+t_point3d	get_vec_b(char *s)
 {
 	char		**args;
 	t_point3d	cord;
 
-	args = ft_split(s, ',', &g_garbage_collector);
-	validate_vec_input(args);
-	cord = create_vector(ft_atod(args[0]), ft_atod(args[1]), ft_atod(args[2]));
+	args = ft_split_b(s, ',', &g_garbage_collector);
+	validate_vec_input_b(args);
+	cord = create_vector_b(ft_atod_b(args[0]), ft_atod_b(args[1]), ft_atod_b(args[2]));
 	return (cord);
 }
 
-void	parse_scene_shape(const char *shape_type, t_world *scene, char **tokens)
+void	parse_scene_shape_b(const char *shape_type, t_world *scene, char **tokens)
 {
-	if (ft_strcmp(shape_type, "sp") == 0)
-		parse_sphere(scene, tokens);
-	else if (ft_strcmp(shape_type, "pl") == 0)
-		parse_plane(scene, tokens);
-	else if (ft_strcmp(shape_type, "cy") == 0)
-		parse_cylinder(scene, tokens);
+	if (ft_strcmp_b(shape_type, "sp") == 0)
+		parse_sphere_b(scene, tokens);
+	else if (ft_strcmp_b(shape_type, "pl") == 0)
+		parse_plane_b(scene, tokens);
+	else if (ft_strcmp_b(shape_type, "cy") == 0)
+		parse_cylinder_b(scene, tokens);
 	else
-		report_error("invalid scene shape");
+		report_error_b("invalid scene shape");
 }
 
-void	parse_scene_element(char element_type, t_world *scene, char **tokens)
+void	parse_scene_element_b(char element_type, t_world *scene, char **tokens)
 {
 	if (element_type == 'A')
-		parse_ambient(scene, tokens);
+		parse_ambient_b(scene, tokens);
 	else if (element_type == 'C')
-		parse_camera(scene, tokens);
+		parse_camera_b(scene, tokens);
 	else if (element_type == 'L')
-		parse_light(scene, tokens);
+		parse_light_b(scene, tokens);
 	else
-		report_error("invalid scene element");
+		report_error_b("invalid scene element");
 }

@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:07:23 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 22:13:53 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:01:37 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-t_point3d	scale_to_one(t_point3d v)
+t_point3d	scale_to_one_b(t_point3d v)
 {
 	double		length;
 	t_point3d	normalized;

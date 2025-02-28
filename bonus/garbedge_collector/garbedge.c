@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 00:08:16 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 22:22:56 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:46:54 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-t_heap_track	**create_and_append(t_heap_track **g_garbage_collector, \
+t_heap_track	**create_and_append_b(t_heap_track **g_garbage_collector, \
 		void *allocated_memory)
 {
 	t_heap_track	*new_node;
@@ -32,23 +32,23 @@ t_heap_track	**create_and_append(t_heap_track **g_garbage_collector, \
 	return (g_garbage_collector);
 }
 
-void	*gc_malloc(t_heap_track **g_garbage_collector, size_t size)
+void	*gc_malloc_b(t_heap_track **g_garbage_collector, size_t size)
 {
 	void	*allocated_memory;
 
 	allocated_memory = malloc(size);
 	if (!allocated_memory)
 		return (NULL);
-	return (create_and_append(g_garbage_collector, allocated_memory), \
+	return (create_and_append_b(g_garbage_collector, allocated_memory), \
 			allocated_memory);
 }
 
-void	gc_cleanup(t_heap_track **g_garbage_collector, \
+void	gc_cleanup_b(t_heap_track **g_garbage_collector, \
 		t_heap_track *collector_node)
 {
 	if (!collector_node)
 		return ;
-	gc_cleanup(g_garbage_collector, collector_node->next);
+	gc_cleanup_b(g_garbage_collector, collector_node->next);
 	free(collector_node->addr);
 	free(collector_node);
 }

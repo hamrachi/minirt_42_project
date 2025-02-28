@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:40:45 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 15:50:22 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:10:47 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../miniRT.h"
+#include "../../miniRT_bonus.h"
 
-double	parse_decimal_part(const char *str, int start_idx, \
+double	parse_decimal_part_b(const char *str, int start_idx, \
 		double whole_num, int sign)
 {
 	int		multiplier;
@@ -31,7 +31,7 @@ double	parse_decimal_part(const char *str, int start_idx, \
 	return (result * sign);
 }
 
-double	ft_atod(const char *str)
+double	ft_atod_b(const char *str)
 {
 	double	number;
 	int		sign;
@@ -49,10 +49,10 @@ double	ft_atod(const char *str)
 		number = number * 10 + (str[i++] - '0');
 	if (str[i] != '.')
 		return (number * sign);
-	return (parse_decimal_part(str, i + 1, number, sign));
+	return (parse_decimal_part_b(str, i + 1, number, sign));
 }
 
-int	handle_number_conversion(const char *str, int start_idx, int sign)
+int	handle_number_conversion_b(const char *str, int start_idx, int sign)
 {
 	int	result;
 	int	it;
@@ -67,7 +67,7 @@ int	handle_number_conversion(const char *str, int start_idx, int sign)
 	return (result * sign);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi_b(const char *str)
 {
 	int	it;
 	int	sign;
@@ -82,5 +82,5 @@ int	ft_atoi(const char *str)
 			sign = -1;
 		it++;
 	}
-	return (handle_number_conversion(str, it, sign));
+	return (handle_number_conversion_b(str, it, sign));
 }

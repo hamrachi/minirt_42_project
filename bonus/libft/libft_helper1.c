@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 22:03:52 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 15:59:13 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:12:53 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../miniRT.h"
+#include "../../miniRT_bonus.h"
 
-static int	count_words(const char *input_text, char delimiter)
+static int	count_words_b(const char *input_text, char delimiter)
 {
 	int	word_count;
 
@@ -28,7 +28,7 @@ static int	count_words(const char *input_text, char delimiter)
 	return (word_count);
 }
 
-static char	*allocate_word(const char *input_text, char delimiter, \
+static char	*allocate_word_b(const char *input_text, char delimiter, \
 	t_heap_track **g_garbage_collector)
 {
 	char	*word_buffer;
@@ -37,15 +37,15 @@ static char	*allocate_word(const char *input_text, char delimiter, \
 	char_count = 0;
 	while (input_text[char_count] && input_text[char_count] != delimiter)
 		char_count++;
-	word_buffer = gc_malloc(g_garbage_collector, \
+	word_buffer = gc_malloc_b(g_garbage_collector, \
 		sizeof(char) * (char_count + 1));
 	if (word_buffer == 0)
 		return (0);
-	ft_strlcpy(word_buffer, input_text, char_count + 1);
+	ft_strlcpy_b(word_buffer, input_text, char_count + 1);
 	return (word_buffer);
 }
 
-char	**process_tokens(char **result_array, const char *input_string, \
+char	**process_tokens_b(char **result_array, const char *input_string, \
 	char delimiter, t_heap_track **g_garbage_collector)
 {
 	int	array_index;
@@ -54,7 +54,7 @@ char	**process_tokens(char **result_array, const char *input_string, \
 	while (*input_string)
 	{
 		result_array[array_index] = \
-			allocate_word(input_string, delimiter, g_garbage_collector);
+			allocate_word_b(input_string, delimiter, g_garbage_collector);
 		if (result_array[array_index] == NULL)
 			return (NULL);
 		while (*input_string && *input_string != delimiter)
@@ -67,7 +67,7 @@ char	**process_tokens(char **result_array, const char *input_string, \
 	return (result_array);
 }
 
-char	**ft_split(const char *input_string, char delimiter, \
+char	**ft_split_b(const char *input_string, char delimiter, \
 	t_heap_track **g_garbage_collector)
 {
 	char	**result_array;
@@ -77,11 +77,11 @@ char	**ft_split(const char *input_string, char delimiter, \
 		return (0);
 	while (*input_string && *input_string == delimiter)
 		input_string++;
-	word_count = count_words(input_string, delimiter);
-	result_array = gc_malloc(g_garbage_collector, \
+	word_count = count_words_b(input_string, delimiter);
+	result_array = gc_malloc_b(g_garbage_collector, \
 		sizeof(char *) * (word_count + 1));
 	if (result_array == 0)
 		return (0);
-	return (process_tokens(result_array, input_string, \
+	return (process_tokens_b(result_array, input_string, \
 		delimiter, g_garbage_collector));
 }

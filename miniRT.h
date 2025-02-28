@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 15:51:07 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:37:46 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,13 @@ t_heap_track	*g_garbage_collector;
 // tools
 int				ft_strlcpy(char *dest, const char *source, int max_size);
 int				ft_strlen(const char *str);
-char    *append_char_to_string(char *original, char new_char, t_heap_track **g_garbage_collector);
-char	*line(int fd, t_heap_track **g_garbage_collector);
+char			*append_char_to_string(char *original, char new_char, \
+	t_heap_track **g_garbage_collector);
+char			*line(int fd, t_heap_track **g_garbage_collector);
 double			ft_atod(const char *str);
 int				ft_atoi(const char *str);
-char	**ft_split(const char *input_string, char delimiter, t_heap_track **g_garbage_collector);
+char			**ft_split(const char *input_string, char delimiter, \
+	t_heap_track **g_garbage_collector);
 
 int				ft_strncmp(char *first_str, const char *second_str, \
 	size_t max_len);

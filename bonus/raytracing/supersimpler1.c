@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:58:16 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 22:02:13 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:00:13 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-t_ray_params	calculate_ray_params(t_ray_trace_context *ctx)
+t_ray_params	calculate_ray_params_b(t_ray_trace_context *ctx)
 {
 	t_ray_params	params;
 
@@ -23,17 +23,17 @@ t_ray_params	calculate_ray_params(t_ray_trace_context *ctx)
 	return (params);
 }
 
-t_point3d	trace_sample_ray(t_ray_trace_context *ctx)
+t_point3d	trace_sample_ray_b(t_ray_trace_context *ctx)
 {
 	t_ray_params	params;
 	t_ray			ray;
 
-	params = calculate_ray_params(ctx);
-	ray = ray_primary(ctx->cam, params.u, params.v);
-	return (ray_color(&ray, ctx->scene));
+	params = calculate_ray_params_b(ctx);
+	ray = ray_primary_b(ctx->cam, params.u, params.v);
+	return (ray_color_b(&ray, ctx->scene));
 }
 
-void	init_pixel_context(t_ray_trace_context *ctx, \
+void	init_pixel_context_b(t_ray_trace_context *ctx, \
 	t_ssaa_config *config, t_cam_matrix *cam, t_world *scene)
 {
 	ctx->config = config;
@@ -41,15 +41,15 @@ void	init_pixel_context(t_ray_trace_context *ctx, \
 	ctx->scene = scene;
 }
 
-void	set_pixel_coords(t_ray_trace_context *ctx, int x, int y)
+void	set_pixel_coords_b(t_ray_trace_context *ctx, int x, int y)
 {
 	ctx->x = x;
 	ctx->y = y;
 }
 
-t_point3d	process_single_sample(t_ray_trace_context *ctx, int sx, int sy)
+t_point3d	process_single_sample_b(t_ray_trace_context *ctx, int sx, int sy)
 {
 	ctx->sx = sx;
 	ctx->sy = sy;
-	return (trace_sample_ray(ctx));
+	return (trace_sample_ray_b(ctx));
 }

@@ -6,26 +6,26 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:58:52 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 22:14:15 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:01:58 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-void	reset_vec(t_point3d *v)
+void	reset_vec_b(t_point3d *v)
 {
 	v->x_coord = 0;
 	v->y_coord = 0;
 	v->z_coord = 0;
 }
 
-double	dot_product(t_point3d u, t_point3d v)
+double	dot_product_b(t_point3d u, t_point3d v)
 {
 	return (u.x_coord * v.x_coord \
 		+ u.y_coord * v.y_coord + u.z_coord * v.z_coord);
 }
 
-t_point3d	cross_product(t_point3d v1, t_point3d v2)
+t_point3d	cross_product_b(t_point3d v1, t_point3d v2)
 {
 	t_point3d	new_vec;
 
@@ -35,7 +35,7 @@ t_point3d	cross_product(t_point3d v1, t_point3d v2)
 	return (new_vec);
 }
 
-t_point3d	mult_vec(t_point3d v, double a)
+t_point3d	mult_vec_b(t_point3d v, double a)
 {
 	v.x_coord = v.x_coord * a;
 	v.y_coord = v.y_coord * a;
@@ -43,7 +43,7 @@ t_point3d	mult_vec(t_point3d v, double a)
 	return (v);
 }
 
-t_point3d	vec_addition(t_point3d v1, t_point3d v2)
+t_point3d	vec_addition_b(t_point3d v1, t_point3d v2)
 {
 	t_point3d	w;
 

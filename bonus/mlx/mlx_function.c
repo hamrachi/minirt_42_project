@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_function.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:55:58 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/24 20:27:38 by hamrachi         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:49:52 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-void	image_init(t_tracer	*info)
+void	image_init_b(t_tracer	*info)
 {
 	info->data.mlx = mlx_init();
 	if (!info->data.mlx)
-		report_error("failed mlx");
+		report_error_b("failed mlx");
 	if (WIDTH > 0 || HEIGHT > 0)
 		info->data.win = mlx_new_window(info->data.mlx, WIDTH, \
 			HEIGHT, "MiniRT");
 	else
-		(free(info->data.mlx), report_error("bad dimension"));
+		(free(info->data.mlx), report_error_b("bad dimension"));
 	if (!info->data.win)
-		(free(info->data.mlx), report_error("error to get the windows"));
+		(free(info->data.mlx), report_error_b("error to get the windows"));
 	info->frame.mlx_img = mlx_new_image(info->data.mlx, WIDTH, HEIGHT);
 	if (!info->frame.mlx_img)
 	{
 		mlx_destroy_window(info->data.mlx, info->data.win);
-		(free(info->data.mlx), report_error("error to get image"));
+		(free(info->data.mlx), report_error_b("error to get image"));
 	}
 	info->frame.pixel_buffer = mlx_get_data_addr(info->frame.mlx_img, \
 		&info->frame.color_depth,
@@ -37,7 +37,7 @@ void	image_init(t_tracer	*info)
 	{
 		mlx_destroy_window(info->data.mlx, info->data.win);
 		mlx_destroy_image(info->data.mlx, info->frame.mlx_img);
-		(free(info->data.mlx), report_error("error to get adress"));
+		(free(info->data.mlx), report_error_b("error to get adress"));
 	}
 }
 
@@ -49,7 +49,7 @@ void	my_mlx_pixel_put(t_canvas *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	esc_key(int key, t_vars *vars)
+int	esc_key_b(int key, t_vars *vars)
 {
 	if (key == 53)
 	{
@@ -59,7 +59,7 @@ int	esc_key(int key, t_vars *vars)
 	return (0);
 }
 
-int	cross_button(t_vars *vars)
+int	cross_button_b(t_vars *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);

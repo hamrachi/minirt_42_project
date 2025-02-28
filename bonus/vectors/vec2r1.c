@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:34:23 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 22:14:47 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:02:07 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-t_point3d	sub_vec(t_point3d u, t_point3d v)
+t_point3d	sub_vec_b(t_point3d u, t_point3d v)
 {
 	t_point3d	w;
 
@@ -22,12 +22,12 @@ t_point3d	sub_vec(t_point3d u, t_point3d v)
 	return (w);
 }
 
-double	magnitude(t_point3d	v)
+double	magnitude_b(t_point3d	v)
 {
 	return (sqrt(pow(v.x_coord, 2) + pow(v.y_coord, 2) + pow(v.z_coord, 2)));
 }
 
-t_point3d	div_vect(t_point3d v, double a)
+t_point3d	div_vect_b(t_point3d v, double a)
 {
 	v.x_coord /= a;
 	v.y_coord /= a;
@@ -35,7 +35,7 @@ t_point3d	div_vect(t_point3d v, double a)
 	return (v);
 }
 
-t_point3d	create_vector(double x, double y, double z)
+t_point3d	create_vector_b(double x, double y, double z)
 {
 	t_point3d	vec;
 

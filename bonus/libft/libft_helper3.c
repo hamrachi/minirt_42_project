@@ -6,19 +6,19 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:48:31 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 16:56:40 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:09:19 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../miniRT.h"
+#include "../../miniRT_bonus.h"
 
-int	ft_strlcpy(char *dest, const char *source, int max_size)
+int	ft_strlcpy_b(char *dest, const char *source, int max_size)
 {
 	int	index;
 	int	source_len;
 
 	index = 0;
-	source_len = ft_strlen((char *)source);
+	source_len = ft_strlen_b((char *)source);
 	if (!source)
 		return (0);
 	if (max_size == 0)

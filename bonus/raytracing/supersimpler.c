@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 15:15:31 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/25 21:19:20 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:59:50 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-t_ssaa_config	init_ssaa_config(void)
+t_ssaa_config	init_ssaa_config_b(void)
 {
 	t_ssaa_config	config;
 
@@ -23,7 +23,7 @@ t_ssaa_config	init_ssaa_config(void)
 	return (config);
 }
 
-t_point3d	process_sample_row(t_ray_trace_context *ctx, int sy)
+t_point3d	process_sample_row_b(t_ray_trace_context *ctx, int sy)
 {
 	t_point3d	color;
 	t_point3d	sample_color;
@@ -33,14 +33,14 @@ t_point3d	process_sample_row(t_ray_trace_context *ctx, int sy)
 	sx = 0;
 	while (sx < ctx->config->samples_per_side)
 	{
-		sample_color = process_single_sample(ctx, sx, sy);
-		color = vec_addition(color, sample_color);
+		sample_color = process_single_sample_b(ctx, sx, sy);
+		color = vec_addition_b(color, sample_color);
 		sx++;
 	}
 	return (color);
 }
 
-t_point3d	process_pixel_with_ssaa(int x, int y, \
+t_point3d	process_pixel_with_ssaa_b(int x, int y, \
 	t_cam_matrix *cam, t_world *scene)
 {
 	t_ray_trace_context		ctx;
@@ -49,21 +49,21 @@ t_point3d	process_pixel_with_ssaa(int x, int y, \
 	t_ssaa_config			config;
 	int						sy;
 
-	config = init_ssaa_config();
-	init_pixel_context(&ctx, &config, cam, scene);
-	set_pixel_coords(&ctx, x, y);
+	config = init_ssaa_config_b();
+	init_pixel_context_b(&ctx, &config, cam, scene);
+	set_pixel_coords_b(&ctx, x, y);
 	color = (t_point3d){0, 0, 0};
 	sy = 0;
 	while (sy < config.samples_per_side)
 	{
-		row_color = process_sample_row(&ctx, sy);
-		color = vec_addition(color, row_color);
+		row_color = process_sample_row_b(&ctx, sy);
+		color = vec_addition_b(color, row_color);
 		sy++;
 	}
-	return (mult_vec(color, config.inv_total_samples));
+	return (mult_vec_b(color, config.inv_total_samples));
 }
 
-void	*render_section(void *arg)
+void	*render_section_b(void *arg)
 {
 	t_thread_data	*data;
 	int				x;
@@ -77,10 +77,10 @@ void	*render_section(void *arg)
 		x = 0;
 		while (x < WIDTH)
 		{
-			color = process_pixel_with_ssaa(x, y, \
+			color = process_pixel_with_ssaa_b(x, y, \
 				&data->info->camera, data->scene);
 			my_mlx_pixel_put(&data->info->frame, x, HEIGHT - 1 - y,
-				create_rgb(color.x_coord, color.y_coord, color.z_coord));
+				create_rgb_b(color.x_coord, color.y_coord, color.z_coord));
 			x++;
 		}
 		y++;

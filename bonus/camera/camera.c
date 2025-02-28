@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:43:19 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 20:27:13 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:06:54 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-t_cam_matrix	initialize_camera_params(t_world *sc)
+t_cam_matrix	initialize_camera_params_b(t_world *sc)
 {
 	t_cam_matrix	cam;
 
@@ -26,19 +26,19 @@ t_cam_matrix	initialize_camera_params(t_world *sc)
 	return (cam);
 }
 
-t_cam_matrix	set_camera(t_world *sc)
+t_cam_matrix	set_camera_b(t_world *sc)
 {
 	t_cam_matrix	cam;
 	t_point3d		ref_world_up;
 
-	cam = initialize_camera_params(sc);
-	ref_world_up = create_vector(0.0, -1.0, 0.0);
-	cam.up_vec = scale_to_one(cross_product(cam.fwd_vec, ref_world_up));
-	cam.right_vec = scale_to_one(cross_product(cam.fwd_vec, cam.up_vec));
+	cam = initialize_camera_params_b(sc);
+	ref_world_up = create_vector_b(0.0, -1.0, 0.0);
+	cam.up_vec = scale_to_one_b(cross_product_b(cam.fwd_vec, ref_world_up));
+	cam.right_vec = scale_to_one_b(cross_product_b(cam.fwd_vec, cam.up_vec));
 	return (cam);
 }
 
-t_ray	ray_primary(t_cam_matrix *cam, double v, double u)
+t_ray	ray_primary_b(t_cam_matrix *cam, double v, double u)
 {
 	t_ray		ray;
 	t_point3d	vertical_offset;
@@ -46,15 +46,15 @@ t_ray	ray_primary(t_cam_matrix *cam, double v, double u)
 	t_point3d	combine_offset;
 
 	ray.origin = cam->pos;
-	vertical_offset = mult_vec(cam->up_vec, v * cam->h);
-	horizontal_offset = mult_vec(cam->right_vec, u * cam->w);
-	combine_offset = vec_addition(vertical_offset, horizontal_offset);
-	ray.direction = vec_addition(combine_offset, cam->fwd_vec);
-	ray.direction = scale_to_one(ray.direction);
+	vertical_offset = mult_vec_b(cam->up_vec, v * cam->h);
+	horizontal_offset = mult_vec_b(cam->right_vec, u * cam->w);
+	combine_offset = vec_addition_b(vertical_offset, horizontal_offset);
+	ray.direction = vec_addition_b(combine_offset, cam->fwd_vec);
+	ray.direction = scale_to_one_b(ray.direction);
 	return (ray);
 }
 
-t_point3d	colorize(double r, double g, double b)
+t_point3d	colorize_b(double r, double g, double b)
 {
 	t_point3d	color;
 
@@ -64,7 +64,7 @@ t_point3d	colorize(double r, double g, double b)
 	return (color);
 }
 
-t_point3d	ray_at(t_ray *ray, double t)
+t_point3d	ray_at_b(t_ray *ray, double t)
 {
 	t_point3d	target;
 

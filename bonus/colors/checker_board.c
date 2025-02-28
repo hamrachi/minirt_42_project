@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 18:08:03 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 20:37:48 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:43:15 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-t_point3d	apply_checkerboard(t_inter_data *intersection, t_texture *texture)
+t_point3d	apply_checkerboard_b(t_inter_data *intersection, t_texture *texture)
 {
 	int	x;
 	int	y;
