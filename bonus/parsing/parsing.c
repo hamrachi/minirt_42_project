@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:56:01 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 21:45:00 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:47:43 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,20 @@ void	process_scene_line(char **tokens, t_world *sc)
 void	parse_scene_file(t_world *sc, int fd)
 {
 	char	**tokens;
+	char	*current_line;
 
 	sc->mlx = mlx_init();
 	if (!sc->mlx)
 		report_error("MLX initialization failed");
 	while (1)
 	{
-		tokens = ft_split(line(fd), ' ');
+		current_line = line(fd, &g_garbage_collector);
+		if (current_line == NULL)
+			break;
+		tokens = ft_split(current_line, ' ', &g_garbage_collector);
 		if (tokens == NULL)
-			break ;
+			break;
 		process_scene_line(tokens, sc);
-		free_split(tokens);
 	}
 	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:40:45 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 16:46:34 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:28:33 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,4 @@ int	ft_atoi(const char *str)
 		it++;
 	}
 	return (handle_number_conversion(str, it, sign));
-}
-
-void	free_split(char **array)
-{
-	int	index;
-
-	index = 0;
-	while (array[index])
-	{
-		free(array[index]);
-		index++;
-	}
-	free(array);
 }

@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 21:15:50 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 21:22:29 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:50:01 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ t_point3d	get_color(char *str)
 	char		**args;
 	t_point3d	color;
 
-	args = ft_split(str, ',');
+	args = ft_split(str, ',', &g_garbage_collector);
 	validate_color_input(args);
 	color = (t_point3d){ft_atoi(args[0]), ft_atoi(args[1]), ft_atoi(args[2])};
 	validate_color_range(color);
-	free_split(args);
 	return (color);
 }
 
@@ -45,10 +44,9 @@ t_point3d	get_vec(char *s)
 	char		**args;
 	t_point3d	cord;
 
-	args = ft_split(s, ',');
+	args = ft_split(s, ',', &g_garbage_collector);
 	validate_vec_input(args);
 	cord = create_vector(ft_atod(args[0]), ft_atod(args[1]), ft_atod(args[2]));
-	free_split(args);
 	return (cord);
 }
 

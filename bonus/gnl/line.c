@@ -6,13 +6,13 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:31:26 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 20:39:59 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:50:33 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../miniRT_bonus.h"
 
-char	*append_char_to_string(char *original, char new_char)
+char	*append_char_to_string(char *original, char new_char, t_heap_track **g_garbage_collector)
 {
 	char	*new_str;
 	size_t	i;
@@ -22,7 +22,7 @@ char	*append_char_to_string(char *original, char new_char)
 	if (original)
 		while (original[original_len])
 			original_len++;
-	new_str = malloc((original_len + 2) * sizeof(char));
+	new_str = gc_malloc(g_garbage_collector, (original_len + 2) * sizeof(char));
 	if (!new_str)
 		return (NULL);
 	i = 0;
@@ -33,11 +33,10 @@ char	*append_char_to_string(char *original, char new_char)
 	}
 	new_str[original_len] = new_char;
 	new_str[original_len + 1] = '\0';
-	free(original);
 	return (new_str);
 }
 
-static char	*read_line(int fd, char *line)
+static char	*read_line(int fd, char *line, t_heap_track **g_garbage_collector)
 {
 	char	c;
 
@@ -49,29 +48,23 @@ static char	*read_line(int fd, char *line)
 		{
 			if (line && line[0] == '#')
 			{
-				free(line);
 				line = NULL;
 				continue ;
 			}
 			break ;
 		}
-		line = append_char_to_string(line, c);
+		line = append_char_to_string(line, c, g_garbage_collector);
 		if (!line)
 			(close(fd), report_error("line allocation error"), exit(2));
 	}
 	return (line);
 }
 
-char	*line(int fd)
+char	*line(int fd, t_heap_track **g_garbage_collector)
 {
 	static char	*line;
 
 	line = NULL;
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-	line = read_line(fd, line);
+	line = read_line(fd, line, g_garbage_collector);
 	return (line);
 }

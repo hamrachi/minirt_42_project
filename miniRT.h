@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 22:26:14 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:51:07 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ t_heap_track	*g_garbage_collector;
 // tools
 int				ft_strlcpy(char *dest, const char *source, int max_size);
 int				ft_strlen(const char *str);
-char			*append_char_to_string(char *original, char new_char);
-char			*line(int fd);
+char    *append_char_to_string(char *original, char new_char, t_heap_track **g_garbage_collector);
+char	*line(int fd, t_heap_track **g_garbage_collector);
 double			ft_atod(const char *str);
 int				ft_atoi(const char *str);
-char			**ft_split(const char *input_string, char delimiter);
-void			free_split(char **array);
+char	**ft_split(const char *input_string, char delimiter, t_heap_track **g_garbage_collector);
+
 int				ft_strncmp(char *first_str, const char *second_str, \
 	size_t max_len);
 int				ft_strcmp(const char *str1, const char *str2);
@@ -144,7 +144,6 @@ int				is_point_in_shadow(t_world *scene, \
 //surface normal
 int				ray_is_inside(t_point3d ray, t_point3d s_norm);
 double			calc_pl_ray_inter(t_ray *ray, t_scene_element *plane);
-t_inter_data	find_closest_intersection(t_ray *ray, t_world *scene);
 /*rendring */
 void			ft_render(t_world *sc);
 void			ft_draw(t_tracer info, t_world *sc);

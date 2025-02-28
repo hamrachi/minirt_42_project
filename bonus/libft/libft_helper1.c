@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 22:03:52 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/23 16:53:54 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:38:57 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	count_words(const char *input_text, char delimiter)
 	return (word_count);
 }
 
-static char	*allocate_word(const char *input_text, char delimiter)
+static char	*allocate_word(const char *input_text, char delimiter, t_heap_track **g_garbage_collector)
 {
 	char	*word_buffer;
 	int		char_count;
@@ -36,38 +36,24 @@ static char	*allocate_word(const char *input_text, char delimiter)
 	char_count = 0;
 	while (input_text[char_count] && input_text[char_count] != delimiter)
 		char_count++;
-	word_buffer = (char *)malloc(sizeof(char) * (char_count + 1));
+	word_buffer = gc_malloc(g_garbage_collector, sizeof(char) * (char_count + 1));
 	if (word_buffer == 0)
 		return (0);
 	ft_strlcpy(word_buffer, input_text, char_count + 1);
 	return (word_buffer);
 }
 
-char	**free_on_error(char **array)
-{
-	int	index;
-
-	index = 0;
-	while (array[index])
-	{
-		free(array[index]);
-		index++;
-	}
-	free(array);
-	return (NULL);
-}
-
-char	**process_tokens(char **result_array, const char *input_string, \
-		char delimiter)
+char	**process_tokens(char **result_array, const char *input_string, 
+                         char delimiter, t_heap_track **g_garbage_collector)
 {
 	int	array_index;
 
 	array_index = 0;
 	while (*input_string)
 	{
-		result_array[array_index] = allocate_word(input_string, delimiter);
+		result_array[array_index] = allocate_word(input_string, delimiter, g_garbage_collector);
 		if (result_array[array_index] == NULL)
-			return (free_on_error(result_array));
+			return (NULL); // No need to free manually anymore
 		while (*input_string && *input_string != delimiter)
 			input_string++;
 		while (*input_string && *input_string == delimiter)
@@ -78,17 +64,19 @@ char	**process_tokens(char **result_array, const char *input_string, \
 	return (result_array);
 }
 
-char	**ft_split(const char *input_string, char delimiter)
+char	**ft_split(const char *input_string, char delimiter, t_heap_track **g_garbage_collector)
 {
 	char	**result_array;
+	int		word_count;
 
 	if (input_string == 0)
 		return (0);
 	while (*input_string && *input_string == delimiter)
-		input_string++;
-	result_array = (char **)malloc(sizeof(char *) \
-			* (count_words(input_string, delimiter) + 1));
+		input_string++;	
+	// Count words for array size
+	word_count = count_words(input_string, delimiter);
+	result_array = gc_malloc(g_garbage_collector, sizeof(char *) * (word_count + 1));
 	if (result_array == 0)
 		return (0);
-	return (process_tokens(result_array, input_string, delimiter));
+	return (process_tokens(result_array, input_string, delimiter, g_garbage_collector));
 }

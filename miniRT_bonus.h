@@ -6,7 +6,7 @@
 /*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/24 18:24:52 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:45:41 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ t_heap_track		*g_garbage_collector;
 
 // tools
 int					ft_strlen(const char *str);
-char				*append_char_to_string(char *original, char new_char);
-char				*line(int fd);
+char	*append_char_to_string(char *original, char new_char, t_heap_track **g_garbage_collector);
+char	*line(int fd, t_heap_track **g_garbage_collector);
 double				ft_atod(const char *str);
 int					ft_atoi(const char *str);
-char				**ft_split(const char *str, char c);
+
+char	**ft_split(const char *input_string, char delimiter, t_heap_track **g_garbage_collector);
+
 void				free_split(char **array);
 int					ft_strncmp(char *s1, const char *s2, size_t n);
 int					ft_strcmp(const char *str1, const char *str2);
@@ -152,8 +154,6 @@ int					is_point_in_shadow(t_world *scene, \
 //surface normal
 int					ray_is_inside(t_point3d ray, t_point3d s_norm);
 double				calc_pl_ray_inter(t_ray *ray, t_scene_element *plane);
-// double plane_intersection(t_ray *ray, t_objs *plane);
-t_inter_data		find_closest_intersection(t_ray *ray, t_world *scene);
 
 //=-=-=--=threads
 
@@ -186,15 +186,7 @@ t_point3d			specular(t_world *scene, \
 	t_inter_data intersection, t_light_source *light);
 t_point3d			apply_checkerboard(t_inter_data *intersection, \
 	t_texture *texture);
-// t_vec apply_checkerboard(t_inter *intersection);
 void				parse_checkerboard(t_texture *texture, \
 	char **args, int start_idx);
-void				parse_texture(t_texture *texture, char **args, \
-	int start_idx, void *mlx);
-// t_img_data *load_texture(void *mlx, char *path);
-t_point3d			get_texture_color(t_texture *texture, double u, double v);
-void				calculate_texture_coords(t_inter_data *intersection, \
-	t_scene_element *obj, double *u, double *v);
-t_point3d			apply_texture(t_inter_data *intersection, \
-	t_texture *texture, t_scene_element *obj);
+
 #endif
