@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:01:11 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 17:13:53 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:37:33 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void				validate_cylinder_input_b(char **args);
 void				validate_cylinder_orientation_b(t_point3d dir);
 void				validate_ambient_ratio_range_b(double ratio);
 void				validate_ambient_input_b(char **args, t_world *scene);
-void				validate_cylinder_diameter_b(double diameter, double height);
+void				validate_cylinder_diameter_b(double diameter, \
+	double height);
 
 // parse
 
@@ -75,7 +76,8 @@ t_world				*allocate_scene_b(void);
 t_scene_element		*allocate_object_b(t_world *scene);
 void				gc_cleanup_b(t_heap_track **g_garbage_collector, \
 	t_heap_track *collector_node);
-void				*gc_malloc_b(t_heap_track **g_garbage_collector, size_t size);
+void				*gc_malloc_b(t_heap_track **g_garbage_collector, \
+	size_t size);
 t_heap_track		*g_garbage_collector;
 
 // tools
@@ -161,7 +163,8 @@ double				calc_pl_ray_inter(t_ray *ray, t_scene_element *plane);
 void				join_threads_b(pthread_t *threads);
 void				create_threads_b(pthread_t *threads, \
 	t_thread_data *thread_data);
-void				init_thread_data_b(t_thread_data *data, t_thread_info *info);
+void				init_thread_data_b(t_thread_data *data, \
+	t_thread_info *info);
 int					get_thread_end_row_b(int thread_id, int rows_per_thread);
 void				init_thread_data_array_b(t_thread_data *thread_data, \
 	t_world *sc, t_tracer *info, int rows_per_thread);
