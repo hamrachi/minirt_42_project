@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:00:02 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 16:52:30 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:33:09 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ double	calc_sp_ray_inter_b(t_ray *ray, t_scene_element *sphere)
 	radius = sphere->param.x_coord / 2.0;
 	calc.quad_a = dot_product_b(ray->direction, ray->direction);
 	calc.quad_b = 2.0 * dot_product_b(ray_to_center, ray->direction);
-	calc.quad_c = dot_product_b(ray_to_center, ray_to_center) - (radius * radius);
+	calc.quad_c = dot_product_b(ray_to_center, ray_to_center) \
+		- (radius * radius);
 	calc.delta = calc.quad_b * calc.quad_b - (4 * calc.quad_a * calc.quad_c);
 	if (calc.delta < EPSILON)
 		return (-1);

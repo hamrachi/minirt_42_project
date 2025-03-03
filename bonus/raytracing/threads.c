@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:16:07 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 17:00:58 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:28:22 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	init_thread_data_b(t_thread_data *data, t_thread_info *info)
 {
 	data->thread_id = info->thread_id;
 	data->start_row = info->thread_id * info->rows_per_thread;
-	data->end_row = get_thread_end_row_b(info->thread_id, info->rows_per_thread);
+	data->end_row = get_thread_end_row_b(info->thread_id, \
+		info->rows_per_thread);
 	data->scene = info->scene;
 	data->info = info->render_info;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 21:15:50 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 17:03:28 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:31:28 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_point3d	get_color_b(char *str)
 
 	args = ft_split_b(str, ',', &g_garbage_collector);
 	validate_color_input_b(args);
-	color = (t_point3d){ft_atoi_b(args[0]), ft_atoi_b(args[1]), ft_atoi_b(args[2])};
+	color = (t_point3d){ft_atoi_b(args[0]), \
+		ft_atoi_b(args[1]), ft_atoi_b(args[2])};
 	validate_color_range_b(color);
 	return (color);
 }
@@ -46,11 +47,13 @@ t_point3d	get_vec_b(char *s)
 
 	args = ft_split_b(s, ',', &g_garbage_collector);
 	validate_vec_input_b(args);
-	cord = create_vector_b(ft_atod_b(args[0]), ft_atod_b(args[1]), ft_atod_b(args[2]));
+	cord = create_vector_b(ft_atod_b(args[0]), \
+		ft_atod_b(args[1]), ft_atod_b(args[2]));
 	return (cord);
 }
 
-void	parse_scene_shape_b(const char *shape_type, t_world *scene, char **tokens)
+void	parse_scene_shape_b(const char *shape_type, t_world *scene, \
+			char **tokens)
 {
 	if (ft_strcmp_b(shape_type, "sp") == 0)
 		parse_sphere_b(scene, tokens);

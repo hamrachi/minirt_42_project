@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamrachi <hamrachi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 21:48:03 by elel-bah          #+#    #+#             */
-/*   Updated: 2025/02/28 16:55:11 by elel-bah         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:32:14 by hamrachi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	validate_cylinder_orientation_b(t_point3d dir)
 {
 	if (dir.x_coord > 1 || dir.y_coord > 1 || dir.z_coord > 1 \
 		|| dir.x_coord < -1 || dir.y_coord < -1 || dir.z_coord < -1)
-		report_error_b("Cylinder direction components must be between -1 and 1.");
+		report_error_b("Cylinder direction components \
+			must be between -1 and 1.");
 }
